@@ -1,0 +1,13 @@
+
+[
+  {
+    "name": "DRY PUMP",
+    "quantity": 10,
+    "powerKW": 15
+  },
+  {
+    "name": "CHILLER",
+    "quantity": 8,
+    "powerKW": 25
+  }
+]
