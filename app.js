@@ -77,14 +77,36 @@ function layoutPanel(){
   return `<section class="panel layout-card" aria-label="라인 스페이스 현황"><div class="panel-header"><h2>라인 스페이스 현황 <span style="font-weight:500;font-size:12px;color:#adc7e7">(${STATE.view==='3d'?'3D 콘셉트':'2D 개념도'})</span></h2><div class="panel-heading-meta"><span class="legend"><i class="square"></i> 운영 설비</span><span class="legend"><i class="square yellow"></i> 신규·계획 설비</span><span class="legend"><i class="square outline"></i> 잔여 공간</span></div></div><div class="layout-scene visual-${STATE.view}">${STATE.view==='2d'?floorplanHtml():''}<div class="line-filter-list">${[{id:'all',name:'전체'},...LINES].map(l=>`<button type="button" data-line="${l.id}" class="line-filter ${STATE.line===l.id?'active':''}">${l.name}</button>`).join('')}</div><div class="scene-info">${line?`${line.name} 사용률 <strong>${line.percent}%</strong>`:'A~E라인 · 배치 콘셉트'}</div></div><div class="layout-tools"><button type="button" class="tool-btn ${STATE.view==='2d'?'active':''}" data-view="2d">${icon('layout')} 2D 도면</button><button type="button" class="tool-btn ${STATE.view==='3d'?'active':''}" data-view="3d">${icon('box')} 3D 뷰</button><button type="button" class="tool-btn" data-feature="배치 시뮬레이션">${icon('grid')} 배치 시뮬레이션</button><button type="button" class="tool-btn" data-feature="공간 분석">${icon('chart')} 공간 분석</button></div></section>`;
 }
 function investmentChartSvg(){
+  // 가독성 개선: 막대 수치는 막대 내부 하단, 사용률은 선 위에 배치해 겹침 방지
   const items=FORECAST.filter(x=>x.year>=STATE.startYear).slice(0,4);
-  const x=[108,239,370,501],yBase=247,yTop=55,scale=192/500;
-  const grids=[0,100,200,300,400,500].map(n=>{let y=yBase-n*scale;return `<line x1="68" x2="576" y1="${y}" y2="${y}" class="gridline"/><text x="56" y="${y+4}" text-anchor="end">${n}</text>`;}).join('');
-  const bars=items.map((item,i)=>{const h=item.add*scale,y=yBase-h;return `<g><rect class="bar" x="${x[i]-23}" y="${y}" width="46" height="${h}" rx="3"><title>${item.year}년 설비투자 +${item.add}대 · 예시</title></rect><text class="bar-label" x="${x[i]}" y="${y-8}" text-anchor="middle">+${item.add}</text><text class="year" x="${x[i]}" y="271" text-anchor="middle">'${String(item.year).slice(2)}${item.year===2026?'(현재)':''}</text></g>`;}).join('');
-  const coords=items.map((item,i)=>[x[i],yBase-(item.usage-65)*(192/35)]);
-  const path=coords.map((p,i)=>`${i===0?'M':'L'} ${p[0]} ${p[1]}`).join(' ');
-  const points=items.map((item,i)=>`<circle class="point" cx="${coords[i][0]}" cy="${coords[i][1]}" r="5"><title>${item.year}년 공간 사용률 ${item.usage}% · 예시</title></circle><text class="util-label" x="${coords[i][0]}" y="${coords[i][1]-14}" text-anchor="middle">${item.usage}%</text>`).join('');
-  return `<svg class="chart-svg" role="img" aria-label="${STATE.startYear}년부터 4년간 투자 계획에 따른 설비 증가와 공간 사용률 전망을 보여주는 가상 데이터 그래프" viewBox="0 0 620 290" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="barFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#b3ecff"/><stop offset="1" stop-color="#3385e7"/></linearGradient></defs><text class="axis-label" x="68" y="26">투자 설비 (대)</text><text class="axis-label" x="558" y="26" text-anchor="end">공간 사용률 (%)</text>${grids}<line class="axis" x1="68" x2="68" y1="45" y2="247"/><line class="axis" x1="576" x2="576" y1="45" y2="247"/>${[65,70,75,80,85,90,95,100].map(n=>`<text x="584" y="${(yBase-(n-65)*(192/35))+4}">${n}</text>`).join('')}${bars}<path class="util-line" d="${path}"/>${points}</svg>`;
+  const left=82, right=610, top=62, bottom=300;
+  const xs=[148,282,416,550];
+  const maxEquipment=500, minUsage=65, maxUsage=100;
+  const barScale=(bottom-top)/maxEquipment;
+  const usageY=usage=>bottom-(usage-minUsage)*(bottom-top)/(maxUsage-minUsage);
+  const grid=[0,100,200,300,400,500].map(n=>{
+    const y=bottom-n*barScale;
+    return `<line class="gridline" x1="${left}" x2="${right}" y1="${y}" y2="${y}"/><text class="tick-label" x="${left-15}" y="${y+5}" text-anchor="end">${n}</text>`;
+  }).join('');
+  const bars=items.map((item,i)=>{
+    const x=xs[i], height=item.add*barScale, y=bottom-height;
+    // 숫자를 막대 안쪽 하단에 고정: 선/퍼센트 레이블과 겹치지 않도록 함
+    return `<g><rect class="bar" x="${x-29}" y="${y}" width="58" height="${height}" rx="6"><title>${item.year}년 투자 설비 ${item.add}대 (샘플)</title></rect><text class="bar-label" x="${x}" y="${bottom-13}" text-anchor="middle">+${item.add}</text><text class="year" x="${x}" y="333" text-anchor="middle">${item.year===2026?'2026 (현재)':String(item.year)}</text></g>`;
+  }).join('');
+  const coordinates=items.map((item,i)=>[xs[i],usageY(item.usage)]);
+  const path=coordinates.map((p,i)=>`${i?'L':'M'} ${p[0]} ${p[1]}`).join(' ');
+  const percentages=items.map((item,i)=>{
+    const [x,y]=coordinates[i];
+    return `<g><circle class="point" cx="${x}" cy="${y}" r="7"><title>${item.year}년 공간 사용률 ${item.usage}% (샘플)</title></circle><text class="util-label" x="${x}" y="${y-22}" text-anchor="middle">${item.usage}%</text></g>`;
+  }).join('');
+  const rightTicks=[65,70,75,80,85,90,95,100].map(n=>`<text class="tick-label" x="${right+13}" y="${usageY(n)+5}">${n}</text>`).join('');
+  return `<svg class="chart-svg" role="img" aria-label="${STATE.startYear}년부터 4년간 투자 설비 대수와 공간 사용률 추이, 가상 데이터" viewBox="0 0 700 365" preserveAspectRatio="xMidYMid meet">
+    <defs><linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9addff"/><stop offset="1" stop-color="#2d7de4"/></linearGradient></defs>
+    <text class="axis-label" x="${left}" y="31">투자 설비 (대)</text><text class="axis-label" x="${right+15}" y="31" text-anchor="end">공간 사용률 (%)</text>
+    ${grid}
+    <line class="axis" x1="${left}" x2="${left}" y1="${top}" y2="${bottom}"/><line class="axis" x1="${right}" x2="${right}" y1="${top}" y2="${bottom}"/>
+    ${rightTicks}${bars}<path class="util-line" d="${path}"/>${percentages}
+  </svg>`;
 }
 function chartPanel(){return `<section class="panel chart-card"><div class="panel-header"><h2>투자 계획에 따른 공간 변화 예측</h2><div class="panel-heading-meta"><span class="legend"><i class="square"></i> 투자 설비(대)</span><span class="legend"><i class="line"></i> 공간 사용률(%)</span></div></div><div class="chart-wrap" id="investmentChart">${investmentChartSvg()}</div></section>`;}
 function alertsPanel(){
