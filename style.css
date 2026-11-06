@@ -15,3 +15,25 @@
 @media(max-width:1000px){:root{--side-width:0px}.app-shell{grid-template-columns:minmax(0,1fr)}.sidebar{position:fixed;left:0;top:0;bottom:0;width:252px;min-height:0;height:100dvh;transform:translateX(-100%);transition:transform .2s ease;z-index:50}.sidebar.open{transform:translateX(0)}.topbar-left{display:flex;align-items:center}.mobile-menu{display:inline-flex}.topbar-mini-brand{font-size:12px;font-weight:900;color:#b4dfff;white-space:nowrap}.topbar-mini-brand span{display:none}.global-search{width:auto;flex:1}.content-grid{grid-template-columns:1fr}.layout-scene{height:320px}.chart-card .chart-wrap{height:300px}.bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-status-panel{grid-column:1/-1}}
 @media(max-width:680px){.topbar{height:58px;padding:0 10px;gap:7px}.header-actions{gap:1px}.global-search{height:36px}.global-search input{font-size:11px}.global-search input::placeholder{font-size:0}.global-search kbd,.account-button,.optional-icon,.ai-button span{display:none}.ai-button{padding:8px}.subbar{padding:7px 11px}.main-screen{padding:12px 10px}.page-heading{flex-direction:column;gap:8px}.page-heading h1{font-size:23px}.heading-side{justify-content:flex-start}.asof{display:none}.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi-card{min-height:96px;padding:10px}.kpi-icon{width:30px}.kpi-icon svg{width:26px;height:26px}.kpi-name{font-size:10px}.kpi-number{font-size:23px}.kpi-sub{font-size:9px}.content-grid,.bottom-grid{gap:10px;margin-bottom:10px}.bottom-grid{grid-template-columns:1fr}.quick-status-panel{grid-column:auto}.layout-scene{height:260px}.layout-tools{flex-wrap:wrap;gap:5px;height:auto;padding:8px}.tool-btn{padding:5px 7px;font-size:10px}.panel-header h2{font-size:14px}.panel-heading-meta{font-size:9px}.legend{gap:4px}.legend:last-child{display:none}.chart-card .chart-wrap{height:270px}.quick-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-btn{flex-direction:row}.status-footer{font-size:9px}.status-footer>span:last-child{display:none}.floorplan{left:20%;gap:3px;padding:5px}.plan-zone-name{font-size:9px}.plan-zone-racks{gap:2px}.scene-info{font-size:10px}.placeholder-shell{padding:20px}.placeholder-shell h2{font-size:22px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* v2.1 — 투자 예측 차트 가독성 개선: 원본 스타일 하단 덮어쓰기 */
+.chart-card .chart-wrap{
+  height:390px;
+  padding:12px 12px 16px;
+  min-width:0;
+}
+.chart-svg{display:block;width:100%;height:100%;overflow:visible}
+.chart-svg text{font-family:inherit;fill:#e6f3ff;font-size:15px;font-weight:650;paint-order:stroke;stroke:#081b37;stroke-width:1.4px;stroke-linejoin:round}
+.chart-svg .tick-label{font-size:14px;fill:#d9e9ff;font-weight:650}
+.chart-svg .gridline{stroke:#35577c;stroke-width:1.15}
+.chart-svg .axis{stroke:#87aace;stroke-width:1.5}
+.chart-svg .axis-label{font-size:16px;fill:#f6fbff;font-weight:850}
+.chart-svg .util-line{stroke:#e9a0f8;stroke-width:3.7;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.chart-svg .point{fill:#f1b4ff;stroke:#fff;stroke-width:2}
+.chart-svg .util-label{font-size:19px;fill:#ffd2fb;font-weight:900;stroke:#071a36;stroke-width:3.1px}
+.chart-svg .bar{fill:url(#barFill);stroke:#87d6ff;stroke-width:1.5}
+.chart-svg .bar-label{font-size:17px;fill:#fff;font-weight:900;stroke:#1c5caa;stroke-width:2.3px}
+.chart-svg .year{font-size:14px;fill:#f7fbff;font-weight:850;stroke-width:1.2px}
+@media(max-width:1000px){.chart-card .chart-wrap{height:355px}}
+@media(max-width:680px){.chart-card .chart-wrap{height:290px;padding:8px 4px 10px}.chart-card .panel-header{flex-wrap:wrap}.chart-svg .axis-label{font-size:16px}}
