@@ -2,13 +2,74 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>EDS 플랫폼</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDS Line Planning Platform</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Malgun Gothic",sans-serif;background:#f3f6fb;color:#172b4d}
+header{background:#142d52;color:white;padding:24px}
+header h1{margin:0;font-size:24px}
+header p{margin:7px 0 0;color:#b9cce6}
+main{max-width:1100px;margin:auto;padding:24px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.card,.panel{background:white;border-radius:12px;padding:22px;box-shadow:0 2px 8px #0000000c}
+.card small{color:#63758a}
+.card strong{display:block;font-size:30px;margin-top:12px}
+.panel{margin-top:22px}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.menu a,.menu span{display:block;padding:18px;border:1px solid #e0e6ee;border-radius:8px;text-decoration:none;color:#183e71;background:#f9fbfe}
+.menu a:hover{background:#e7f0ff}
+.menu span{color:#8290a2}
+#status{font-size:13px;color:#60748c;margin-top:12px}
+</style>
 </head>
 <body>
-  <h1>EDS 플랫폼 연결 성공!</h1>
-  <p>GitHub Pages가 정상적으로 작동합니다.</p>
-  <a href="./equipment.html">설비 현황 보기</a>
+<header>
+<h1>EDS LINE PLANNING</h1>
+<p>Engineering Data & Planning Platform</p>
+</header>
+<main>
+<h2>통합 대시보드</h2>
+<div class="cards">
+<div class="card"><small>총 설비 수량</small><strong id="total">-</strong></div>
+<div class="card"><small>설비 유형</small><strong id="types">-</strong></div>
+<div class="card"><small>총 설비 전력</small><strong id="power">-</strong></div>
+<div class="card"><small>데이터 상태</small><strong id="state">확인 중</strong></div>
+</div>
+<section class="panel">
+<h2>주요 메뉴</h2>
+<div class="menu">
+<a href="./equipment.html">⚙️ 설비 현황 관리 →</a>
+<span>📁 기술자료실 (준비 중)</span>
+<span>📊 라인기획 분석 (준비 중)</span>
+<span>🔐 사용자·권한 관리 (준비 중)</span>
+</div>
+<p id="status">설비 데이터를 불러오는 중입니다.</p>
+</section>
+</main>
+<script>
+fetch("./data/equipment.json")
+.then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})
+.then(data=>{
+const items=Array.isArray(data)?data:
+Array.isArray(data.equipment)?data.equipment:
+Array.isArray(data.equipments)?data.equipments:
+Array.isArray(data.items)?data.items:null;
+if(!items)throw new Error("JSON 목록 구조 확인 필요");
+const total=items.reduce((s,x)=>s+Number(x.quantity||0),0);
+const power=items.reduce((s,x)=>s+Number(x.quantity||0)*Number(x.powerKW||0),0);
+document.getElementById("total").textContent=total+"대";
+document.getElementById("types").textContent=items.length+"종";
+document.getElementById("power").textContent=power.toLocaleString()+" kW";
+document.getElementById("state").textContent="정상";
+document.getElementById("status").textContent="설비 데이터 연결 성공";
+})
+.catch(e=>{
+document.getElementById("state").textContent="확인 필요";
+document.getElementById("status").textContent="데이터 확인: "+e.message;
+});
+</script>
 </body>
 </html>
   
