@@ -1,75 +1,101 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EDS Line Planning Platform</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Malgun Gothic",sans-serif;background:#f3f6fb;color:#172b4d}
-header{background:#142d52;color:white;padding:24px}
-header h1{margin:0;font-size:24px}
-header p{margin:7px 0 0;color:#b9cce6}
-main{max-width:1100px;margin:auto;padding:24px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-.card,.panel{background:white;border-radius:12px;padding:22px;box-shadow:0 2px 8px #0000000c}
-.card small{color:#63758a}
-.card strong{display:block;font-size:30px;margin-top:12px}
-.panel{margin-top:22px}
-.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.menu a,.menu span{display:block;padding:18px;border:1px solid #e0e6ee;border-radius:8px;text-decoration:none;color:#183e71;background:#f9fbfe}
-.menu a:hover{background:#e7f0ff}
-.menu span{color:#8290a2}
-#status{font-size:13px;color:#60748c;margin-top:12px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07152f" />
+  <meta name="description" content="EDS 라인기획 통합관리 플랫폼 메인 대시보드 — 16개 업무 영역 연계용 UI" />
+  <title>EDS 라인기획 통합관리 플랫폼</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./app.js" defer></script>
 </head>
 <body>
-<header>
-<h1>EDS LINE PLANNING</h1>
-<p>Engineering Data & Planning Platform</p>
-</header>
-<main>
-<h2>통합 대시보드</h2>
-<div class="cards">
-<div class="card"><small>총 설비 수량</small><strong id="total">-</strong></div>
-<div class="card"><small>설비 유형</small><strong id="types">-</strong></div>
-<div class="card"><small>총 설비 전력</small><strong id="power">-</strong></div>
-<div class="card"><small>데이터 상태</small><strong id="state">확인 중</strong></div>
-</div>
-<section class="panel">
-<h2>주요 메뉴</h2>
-<div class="menu">
-<a href="./equipment.html">⚙️ 설비 현황 관리 →</a>
-<span>📁 기술자료실 (준비 중)</span>
-<span>📊 라인기획 분석 (준비 중)</span>
-<span>🔐 사용자·권한 관리 (준비 중)</span>
-</div>
-<p id="status">설비 데이터를 불러오는 중입니다.</p>
-</section>
-</main>
-<script>
-fetch("./data/equipment.json")
-.then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})
-.then(data=>{
-const items=Array.isArray(data)?data:
-Array.isArray(data.equipment)?data.equipment:
-Array.isArray(data.equipments)?data.equipments:
-Array.isArray(data.items)?data.items:null;
-if(!items)throw new Error("JSON 목록 구조 확인 필요");
-const total=items.reduce((s,x)=>s+Number(x.quantity||0),0);
-const power=items.reduce((s,x)=>s+Number(x.quantity||0)*Number(x.powerKW||0),0);
-document.getElementById("total").textContent=total+"대";
-document.getElementById("types").textContent=items.length+"종";
-document.getElementById("power").textContent=power.toLocaleString()+" kW";
-document.getElementById("state").textContent="정상";
-document.getElementById("status").textContent="설비 데이터 연결 성공";
-})
-.catch(e=>{
-document.getElementById("state").textContent="확인 필요";
-document.getElementById("status").textContent="데이터 확인: "+e.message;
-});
-</script>
+  <!-- Offline-compatible SVG icon set. No external icon or font CDN required. -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.8 2.8 0 0 1 5 1.6c0 2-2.5 2.2-2.5 4M12 18h.01"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3-7 8-7s8 2.5 8 7"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7zM2 12l10 5 10-5M2 17l10 5 10-5"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-12h-7z"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 2c-4 5-8 10-8 14a8 8 0 0 0 16 0c0-4-4-9-8-14z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 10h18"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 21V4M3 21h18M7 17v-5h3v5M12 17V8h3v9M17 17V4h3v13"/></symbol>
+    <symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 21V9l7 4V9l7 4V4h6v17zM6 17h2M12 17h2M18 17h2"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6zM14 2v5h5M9 12h7M9 16h7"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14 4a6 6 0 0 0-7 7L2 16l6 6 5-5a6 6 0 0 0 7-7l-5 4-5-5z"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5zM3 7v10l9 5 9-5V7M12 12v10"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M8 11h8M8 15h8"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 21 6v6c0 6-4 9-9 11-5-2-9-5-9-11V6zM8 12l3 3 5-6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20zM12 9v5M12 18h.01"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4zM19 2v4M17 4h4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3 12h18m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M10 2v20M10 10h12M2 15h8"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M2 12h5l3-8 4 16 3-8h5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7h.01"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 2 4 3 9 3s9-1 9-3V5M3 12c0 4 18 4 18 0"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="12" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v3"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="9" r="2"/><path d="m3 18 5-5 4 4 4-6 5 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M13 4h7v7M20 4l-9 9M20 14v6H4V4h6"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9h4l5-5v16l-5-5H4zM17 9a5 5 0 0 1 0 6"/></symbol>
+  </svg>
+
+  <div class="app-shell" id="appShell">
+    <aside class="sidebar" id="sidebar" aria-label="사이드 메뉴">
+      <a class="brand" href="#/dashboard" aria-label="EDS 대시보드로 이동">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-titles"><strong>EDS 라인기획</strong><small>통합관리 플랫폼 <b>v2.0</b></small></span>
+      </a>
+      <nav id="sideNav" class="side-nav" aria-label="업무 메뉴"></nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-tag"><span class="status-dot"></span> 화면 시안 · 샘플 데이터</div>
+        <div class="sidebar-footnote">16개 업무 영역을 순차적으로 연결합니다.</div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button mobile-menu" id="menuToggle" type="button" aria-label="사이드 메뉴 열기"><svg><use href="#i-menu"/></svg></button>
+          <div class="topbar-mini-brand">EDS <span>LINE PLANNING</span></div>
+        </div>
+        <div class="global-search" id="searchWrap">
+          <svg aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="sr-only" for="globalSearch">라인·설비·제원·도면·프로젝트 검색</label>
+          <input id="globalSearch" type="search" autocomplete="off" placeholder="라인, 설비, 제원, 도면, 프로젝트 검색 (예: 설비 제원정보)" />
+          <kbd>/</kbd>
+          <div class="search-results" id="searchResults" hidden></div>
+        </div>
+        <div class="header-actions">
+          <button class="ai-button" id="aiRequest" type="button"><svg><use href="#i-sparkles"/></svg><span>AI 분석 요청</span></button>
+          <button class="icon-button" id="notificationsBtn" type="button" title="주요 알림으로 이동" aria-label="주요 알림으로 이동"><svg><use href="#i-bell"/></svg><i class="notification-dot"></i></button>
+          <button class="icon-button optional-icon" id="helpBtn" type="button" title="도움말" aria-label="도움말"><svg><use href="#i-help"/></svg></button>
+          <button class="account-button" id="accountBtn" type="button"><svg><use href="#i-user"/></svg><span>라인기획팀</span><svg class="chevron"><use href="#i-chevron"/></svg></button>
+        </div>
+      </header>
+
+      <div class="subbar"><span class="subbar-item"><svg><use href="#i-info"/></svg><b>EDS 통합 대시보드</b><span class="subbar-sep">·</span> 16개 업무 영역 연계 설계</span><span class="subbar-item subbar-right"><svg><use href="#i-database"/></svg> GitHub Pages 호환 <span class="subbar-sep">|</span> 상세 메뉴 순차 개발 <span class="subbar-sep">|</span> 데이터: 데모</span></div>
+
+      <main id="mainContent" tabindex="-1"></main>
+
+      <footer class="status-footer"><span><span class="status-dot"></span> <b>화면 시안 정상 표시</b> <span class="footer-pipe">|</span> 데이터: 가상 예시</span><span>메인 대시보드 v2.0 <span class="footer-pipe">|</span> 상세 페이지: 순차 개발 <span class="footer-pipe">|</span> <span id="currentDate"></span></span></footer>
+    </div>
+  </div>
+  <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+
+  <dialog id="infoDialog" class="info-dialog" aria-labelledby="dialogTitle">
+    <div class="dialog-head"><div class="dialog-icon"><svg><use href="#i-info"/></svg></div><h2 id="dialogTitle">기능 안내</h2><button class="icon-button" id="dialogClose" type="button" aria-label="닫기"><svg><use href="#i-close"/></svg></button></div>
+    <div class="dialog-body" id="dialogBody"></div>
+    <div class="dialog-actions"><button class="button button-primary" id="dialogOk" type="button">확인</button></div>
+  </dialog>
 </body>
 </html>
-  
