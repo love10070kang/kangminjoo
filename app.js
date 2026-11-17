@@ -62,7 +62,7 @@ function renderNavigation(){
   for(const group of GROUPS){
     const collapsed=STATE.collapsed.has(group.id);
     html+=`<section class="nav-group ${collapsed?'collapsed':''}"><button type="button" class="nav-section-toggle" data-toggle-group="${group.id}" aria-expanded="${!collapsed}">${icon(group.icon,'nav-group-icon')}<span>${esc(group.name)}</span>${icon('chevron','chevron')}</button><div class="nav-items">`;
-    for(const key of group.keys){const m=MODULES[key];html+=`<a class="nav-link ${STATE.route===key?'active':''}" href="#/${key}">${icon(m.icon,'nav-symbol')}<span class="nav-num">${m.number}</span><span class="nav-label">${esc(m.name)}</span></a>`;}
+    for(const key of group.keys){const m=MODULES[key];html+=`<a class="nav-link ${STATE.route===key?'active':''}" href="${key==='lines'?'./line-info.html':'#/'+key}">${icon(m.icon,'nav-symbol')}<span class="nav-num">${m.number}</span><span class="nav-label">${esc(m.name)}</span></a>`;}
     html+='</div></section>';
   }
   $('sideNav').innerHTML=html;
@@ -124,6 +124,7 @@ function placeholder(key){
   return `<div class="main-screen placeholder-page"><div class="page-heading"><div><h1>${m.number}. ${esc(m.name)} <span class="demo-badge">다음 단계 개발</span></h1><p>${esc(m.desc)}</p></div><div class="heading-side"><button class="button" type="button" data-route="dashboard">${icon('home')} 메인화면</button></div></div><section class="placeholder-shell"><div class="placeholder-eyebrow">EDS MODULE ${m.number} · PAGE DESIGN PENDING</div><h2>${esc(m.name)}</h2><p>${esc(m.desc)}</p><p>메인 대시보드 연결은 완료되었습니다. 이 페이지의 목록·조회·등록·수정 화면은 사용자와 항목을 하나씩 협의한 후 구현합니다.</p><h3 style="margin:18px 0 6px;font-size:14px">향후 연결할 필수 데이터</h3><div class="placeholder-fields">${m.fields.map(f=>`<span class="placeholder-field">${esc(f)}</span>`).join('')}</div><div class="placeholder-note">이 페이지는 현재 저장 기능이 없으며 실데이터를 조회하거나 수정하지 않습니다.</div><div class="placeholder-actions"><button class="button button-primary" type="button" data-route="dashboard">메인 대시보드로 돌아가기</button>${existing?'<a class="button" href="./equipment.html">기존 설비현황 페이지 열기 ↗</a>':''}</div></section></div>`;
 }
 function setRoute(key){
+  if(key==='lines'){location.replace('./line-info.html');return;}
   STATE.route=(key==='dashboard'||MODULES[key])?key:'dashboard';
   renderNavigation();
   $('mainContent').innerHTML=STATE.route==='dashboard'?dashboard():placeholder(STATE.route);
@@ -157,7 +158,7 @@ document.addEventListener('click',event=>{
   const alert=event.target.closest('[data-alert-id]');
   if(alert){const record=ALERTS.find(a=>a.id===alert.dataset.alertId);if(record)showDialog('알림 상세 · 가상 데이터',`${record.text}\n\n${record.detail}`);return;}
   const result=event.target.closest('[data-result]');
-  if(result){location.hash='#/'+result.dataset.result;return;}
+  if(result){if(result.dataset.result==='lines'){location.href='./line-info.html';}else{location.hash='#/'+result.dataset.result;}return;}
   const feat=event.target.closest('[data-feature]');
   if(feat){showPlanned(feat.dataset.feature);return;}
   const route=event.target.closest('[data-route]');
