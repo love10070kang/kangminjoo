@@ -19,7 +19,7 @@ const GROUPS = [
   {id:'decision',name:'06. 보고·의사결정',icon:'clipboard',keys:['reports']}
 ];
 const MODULES = {
-  lines:{number:'01',name:'라인 기본정보',desc:'FAB, 동·층·구역, 면적, 라인 특성 관리',icon:'factory',fields:['라인 ID','사업장 / FAB','동 / 층 / 구역','총면적 / 사용면적','운영 상태','기준일']},
+  lines:{number:'01',name:'라인 기본정보',desc:'FAB, 동·층·구역, 면적, 라인 특성 관리',icon:'factory',fields:['라인 ID','사업장 / FAB','동 / 층 / 구역','건설면적 / 클린면적 / 가용면적','바닥·층고·Access Floor','환경 / 접근성 / 도면']},
   production:{number:'02',name:'생산계획',desc:'월별·제품별 생산 수요와 계획 버전 관리',icon:'calendar',fields:['계획 ID','계획 기간','제품군 / 공정','대상 라인','생산계획 물량','확정 여부']},
   capacity:{number:'03',name:'생산능력(CAPA)',desc:'공정별 CAPA·병목·필요 설비 대수 분석',icon:'chart',fields:['CAPA 산정 ID','공정 / 설비군','기준 기간','설비 가용 대수','UPH / 가동시간','산정 가정']},
   equipment:{number:'04',name:'설비현황',desc:'개별 설비의 위치·상태·모델 관리',icon:'cpu',fields:['설비 ID','설비명 / 설비군','Maker / Model','Serial No.','라인 / 설치 위치','운영 상태']},
@@ -168,7 +168,7 @@ document.addEventListener('click',event=>{
 
 $('globalSearch').addEventListener('input',e=>showSearch(e.target.value));
 $('globalSearch').addEventListener('keydown',e=>{
-  if(e.key==='Enter'){const first=$('searchResults').querySelector('[data-result]');if(first){e.preventDefault();location.hash='#/'+first.dataset.result;}}
+  if(e.key==='Enter'){const first=$('searchResults').querySelector('[data-result]');if(first){e.preventDefault();if(first.dataset.result==='lines'){location.href='./line-info.html';}else{location.hash='#/'+first.dataset.result;}}}
   if(e.key==='Escape'){closeSearch();e.target.blur();}
 });
 $('menuToggle').addEventListener('click',()=>{$('sidebar').classList.add('open');$('mobileBackdrop').hidden=false;});

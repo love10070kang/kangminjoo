@@ -19,6 +19,147 @@
 .sync-indicator.alert{border-color:#bd8f42;background:#46331c;color:#ffe2ad}
 #syncShade .field{margin-top:10px}#syncShade .field input{width:100%;background:#081b35;color:#e6f5ff;border:1px solid #4b70a4;padding:9px 11px;border-radius:7px}
 #syncShade code{color:#72d8fc}#syncMessage{white-space:pre-wrap}
+
+/* v3.0: all-menu navigation and per-panel expand / collapse controls */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.quick-nav select{max-width:240px;border:1px solid #3975ae;border-radius:8px;color:#dcecff;background:#102c52;padding:8px 9px;font-weight:700;font-size:11px}
+.quick-nav select option{background:#102849;color:#fff}
+.panel-controls{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
+.panel-action{border:1px solid #4978a6;border-radius:6px;background:#122e54;color:#d9eaff;font-size:10px;font-weight:750;padding:5px 7px;white-space:nowrap}
+.panel-action:hover{background:#1a5486;color:white}
+.panel.adjustable-panel .panel-header{flex-wrap:wrap}
+.panel.adjustable-panel.is-minimized>:not(.panel-header){display:none!important}
+.raw-block.is-minimized .table-holder,.raw-block.is-minimized .raw-footer{display:none!important}
+.adjustable-panel.is-maximized,.raw-block.is-maximized{position:fixed!important;inset:18px!important;width:auto!important;height:auto!important;z-index:1001!important;display:flex!important;flex-direction:column!important;margin:0!important;box-shadow:0 20px 70px #000b;background:#091e3d!important}
+.adjustable-panel.is-maximized .chart-body,.adjustable-panel.is-maximized .floor-chart,.adjustable-panel.is-maximized .heat-wrap{flex:1;height:auto;max-height:none;min-height:0}
+.adjustable-panel.is-maximized .chart-body svg{width:100%;height:100%}
+.raw-block.is-maximized .table-holder{flex:1;max-height:none;height:auto}
+body.panel-fullscreen{overflow:hidden}
+@media(max-width:1120px){.quick-nav select{max-width:175px}}
+@media(max-width:720px){.top-tag{display:none}.quick-nav select{max-width:140px;font-size:10px}.panel-controls{width:100%}.panel-action{font-size:9px}}
+
+/* v3.0 numeric chart improvement: every series has an always-visible exact-value ledger. */
+.svg-value{fill:#eaf7ff;font-size:13px;font-weight:850}
+.chart-body{overflow:auto}
+.chart-body svg{height:217px;min-height:217px;flex:none}
+.exact-values{border-top:1px solid #24456e;padding:3px 4px;font-variant-numeric:tabular-nums}
+.exact-hint{font-size:9px;color:#b6d8f4;margin-bottom:3px}
+.exact-scroll{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}
+.exact-col{flex:0 0 59px;border:1px solid #2a598f;border-radius:3px;padding:2px;display:grid;gap:1px;text-align:center;font-size:10px;background:#0a2a52}
+.exact-col b{color:white;font-size:10px}.exact-col span:nth-child(2){color:#9acaff}.exact-col span:nth-child(3){color:#d0baff}.exact-col span:nth-child(4){color:#5ee4e1}
+.floor-row{margin-bottom:5px}
+.floor-row .stack{height:18px}
+.floor-row .stack i{display:flex;justify-content:center;align-items:center;overflow:hidden}
+.floor-row .stack i b{font-size:9px;white-space:nowrap;font-weight:800;color:#041d34}
+.adjustable-panel.is-maximized .chart-body svg{height:70%;min-height:0;width:100%}
+
+
+/* v4.0: preserve original 16-menu dashboard; place upload/history in persistent right rail */
+:root{--aside:208px}
+.main{padding:10px 11px 9px}
+.page-head{margin-bottom:8px;min-height:55px}
+.page-head h1{font-size:24px}
+.page-head p{margin-top:2px}
+.version-top{gap:8px;flex-wrap:wrap}
+.fit-btn{white-space:nowrap;padding:6px 10px;font-size:10px;color:#a8e7f8;background:#0f3c60;border:1px solid #267caa}
+.filters{margin-bottom:8px;gap:7px;padding:6px 9px}
+.filter-field{min-width:130px}
+.kpis{margin-bottom:9px;gap:8px}
+.kpi{min-height:77px;padding:10px 12px}
+.kpi-value{font-size:25px}
+.workspace-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(255px,282px);gap:9px;align-items:stretch}
+.workspace-core{display:flex;flex-direction:column;min-width:0;gap:9px}
+.vis-grid{display:grid;grid-template-columns:1.1fr 1fr 1.03fr;gap:9px;margin:0;min-height:290px}
+.vis-grid .panel:last-child{grid-column:auto}
+.panel-header{min-height:34px;padding:6px 8px;gap:4px;flex-wrap:wrap}
+.panel-header h2{font-size:12px}
+.panel-header small,.panel-header .legend{font-size:9px}
+.panel-controls{gap:3px}
+.panel-action{font-size:9px;padding:4px 5px}
+.chart-body,.floor-chart,.heat-wrap{height:270px;max-height:none;min-height:0}
+.chart-body svg{height:184px;min-height:184px}
+.chart-body{padding:4px}
+.exact-values{padding:2px 2px 0}
+.exact-col{flex-basis:58px}
+.floor-row{margin-bottom:4px}
+.floor-row .stack{height:17px}
+.floor-row .stack i b{font-size:9px}
+.heat-wrap{overflow:auto}
+.heat-table{font-size:10px}
+.raw-block{min-width:0;margin:0}
+.raw-title{gap:7px;padding:8px 10px;flex-wrap:wrap}
+.raw-title h2{font-size:16px}
+.raw-title small{font-size:9px}
+.raw-actions{gap:4px}
+.raw-actions .btn{font-size:9px;padding:5px 8px}
+.raw-block .table-holder{height:204px;max-height:204px;overflow:auto}
+.raw-table th{font-size:10px}
+.raw-table td{font-size:10px}
+.raw-footer{font-size:10px;padding:5px 9px;gap:8px}
+.management-rail{display:flex;flex-direction:column;gap:9px;min-width:0}
+.rail-card,.utility-card{background:linear-gradient(150deg,#0c254a,#071a35);border:1px solid #3173ad;border-radius:11px;box-shadow:inset 0 0 18px #2c84cf0c;overflow:hidden;min-width:0}
+.rail-heading,.utility-head{padding:8px 11px;background:linear-gradient(95deg,#133b6c,#0e2d57);border-bottom:1px solid #2c5c91;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.rail-heading h2,.utility-head h2{font-size:13px;font-weight:850;margin:0;white-space:nowrap}
+.rail-heading .mini-chip{font-size:9px;color:#76e7eb;white-space:nowrap}
+.rail-form{display:grid;grid-template-columns:85px minmax(0,1fr);align-items:center;gap:8px 7px;padding:11px 11px 8px}
+.rail-form label{font-weight:740;color:#d0e2f8;font-size:10px}
+.rail-form label em{color:#ff939c;font-style:normal}
+.rail-form input{width:100%;min-width:0;border:1px solid #4b709b;color:#f0f9ff;background:#0b284d;border-radius:6px;padding:7px 8px;font-size:11px;height:31px}
+.rail-form input[type=file]{font-size:9px;padding:5px;height:auto}
+.rail-form input[type=file]::file-selector-button{background:#1b568a;border:0;color:white;border-radius:4px;padding:3px;font-size:9px}
+.rail-hint{grid-column:1/-1;font-size:10px;color:#9fc2e3;margin:2px 0;line-height:1.5}
+.rail-primary{grid-column:1/-1;width:100%;font-size:11px;padding:9px}
+.rail-meta{padding:0 11px 10px;display:flex;justify-content:space-between;align-items:center;gap:5px;font-size:9px;color:#8cc6e0}
+.quiet-link{background:none;border:0;color:#a5d8ff;font-size:10px;text-decoration:underline;text-underline-offset:2px;cursor:pointer;white-space:nowrap}
+.rail-history{flex:1;display:flex;flex-direction:column;min-height:0}
+.rail-history-list{padding:7px 9px;display:flex;flex-direction:column;gap:5px;flex:1;overflow:auto;max-height:225px}
+.rail-history-row{display:grid;grid-template-columns:15px 47px minmax(0,1fr);gap:5px;align-items:center;border:1px solid #2a5488;border-radius:6px;background:#0b2447;color:#dfebff;padding:6px 7px;width:100%;text-align:left}
+.rail-history-row:hover,.rail-history-row.selected{border-color:#65baf4;background:#17426f}
+.rail-history-row b{font-size:10px}.rail-history-row small{font-size:9px;color:#a1bfdf;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rail-history-row .ver-date{font-size:9px;color:#cce3f7}
+.rail-history-actions{display:flex;gap:4px;padding:9px;border-top:1px solid #224775}
+.rail-history-actions .btn{flex:1;padding:6px 3px;font-size:9px;min-width:0}
+.utility-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:9px;margin-top:9px}
+.utility-card{min-height:110px}
+.utility-head{padding:7px 10px}
+.utility-head small{font-size:9px;color:#9cbad7}
+.steps,.utility-actions{padding:14px 9px;display:flex;gap:5px;align-items:center;justify-content:center}
+.steps button,.utility-actions button{color:#e6f5ff;border:1px solid #327db0;background:#113d70;border-radius:7px;padding:9px 6px;font-size:10px;font-weight:800;white-space:normal;min-width:0}
+.steps span{color:#81b7de}
+.utility-actions button{flex:1;min-height:51px;font-size:10px}
+.quality-messages{padding:6px 10px 0;display:grid;gap:3px}
+.quality-row{display:flex;gap:7px;color:#e6efff;font-size:10px;align-items:center;padding:5px 7px;border:1px solid #255481;background:#0b2b54;border-radius:6px}
+.quality-row .qty{font-weight:900;color:#ffce7d}
+.quality-card>.quiet-link{margin:6px 10px 8px;text-align:left}
+.footer-note{margin:7px 0 0;font-size:10px}
+.compare-dialog{width:min(820px,96vw)}
+.compare-pickers{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:15px 0}
+.compare-pickers label{font-size:12px;font-weight:700;display:grid;gap:7px}
+.compare-pickers select{border:1px solid #467eb5;border-radius:7px;padding:10px;background:#0b2a51;color:#f1f7ff;width:100%}
+.compare-dialog .history-raw{max-height:440px}
+.sidebar-collapse{display:block;background:linear-gradient(#16457a,#0a2e5a);border:1px solid #396caa;color:#dff1ff;border-radius:7px;padding:8px;width:calc(100% - 20px);margin:10px;font-size:11px;font-weight:750}
+body.nav-compact{--aside:62px}
+body.nav-compact .brand>div,body.nav-compact .side .nav-section,body.nav-compact .side .side-end,body.nav-compact .side .nav-home{display:none}
+body.nav-compact .side .brand{justify-content:center;padding:8px 2px}
+body.nav-compact .side .nav-item{font-size:0;text-align:center;padding:8px 1px;overflow:hidden}
+body.nav-compact .side .nav-item .nav-bullet{font-size:10px;margin:0;display:inline-flex}
+body.nav-compact .sidebar-collapse{font-size:0;padding:8px 2px}
+body.nav-compact .sidebar-collapse:after{content:'⇥';font-size:20px}
+body.fit-mode .main{padding-top:5px}
+body.fit-mode .page-head{min-height:44px}
+body.fit-mode .kpi{min-height:65px;padding:8px 10px}
+body.fit-mode .kpi-value{font-size:22px}
+body.fit-mode .filters{padding:3px 7px;margin-bottom:5px}
+body.fit-mode .vis-grid{min-height:255px}
+body.fit-mode .chart-body,body.fit-mode .floor-chart,body.fit-mode .heat-wrap{height:231px}
+body.fit-mode .chart-body svg{height:154px;min-height:154px}
+body.fit-mode .raw-block .table-holder{height:164px;max-height:164px}
+body.fit-mode .utility-card{min-height:87px}
+body.fit-mode .steps,body.fit-mode .utility-actions{padding:7px}
+body.fit-mode .utility-head{padding:5px 8px}
+@media(max-width:1500px){.workspace-layout{grid-template-columns:minmax(0,1fr) 254px}.vis-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.panel-header h2{font-size:11px}.panel-action{font-size:9px}.kpi-value{font-size:21px}.rail-form{grid-template-columns:76px minmax(0,1fr)}.steps button{font-size:9px}}
+@media(max-width:1200px){.workspace-layout{grid-template-columns:1fr}.management-rail{display:grid;grid-template-columns:1fr 1fr}.vis-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.utility-grid{grid-template-columns:1fr 1fr}.quality-card{grid-column:1/-1}.rail-history-list{max-height:220px}}
+@media(max-width:950px){.vis-grid{grid-template-columns:1fr 1fr}.vis-grid .panel:last-child{grid-column:1/-1}.utility-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.management-rail{display:flex}.workspace-layout{grid-template-columns:1fr}.vis-grid{grid-template-columns:1fr}.vis-grid .panel:last-child{grid-column:auto}.rail-form{grid-template-columns:84px minmax(0,1fr)}.steps{flex-wrap:wrap}.kpis{grid-template-columns:repeat(2,1fr)}.version-top{margin-top:5px}.fit-btn{display:none}}
 </style>
 </head>
 <body>
@@ -27,22 +168,35 @@
     <div class="brand"><span class="brand-mark">▦</span><div><strong>EDS LINE PLANNING</strong><small>라인기획 통합관리 플랫폼</small></div></div>
     <a class="nav-home" href="./index.html">⌂　홈 · 통합 대시보드</a>
     <div class="nav-section">01　라인 운영현황</div>
-    <a class="nav-item active" href="#"><span class="nav-bullet">01</span> 라인 기본정보</a>
-    <div class="nav-item"><span class="nav-bullet">02</span> 생산계획</div><div class="nav-item"><span class="nav-bullet">03</span> 생산능력(CAPA)</div><div class="nav-item"><span class="nav-bullet">04</span> 설비현황</div>
+    <a class="nav-item active" href="./line-info.html" aria-current="page"><span class="nav-bullet">01</span> 라인 기본정보</a>
+    <a class="nav-item" href="./index.html#/production"><span class="nav-bullet">02</span> 생산계획</a>
+    <a class="nav-item" href="./index.html#/capacity"><span class="nav-bullet">03</span> 생산능력(CAPA)</a>
+    <a class="nav-item" href="./index.html#/equipment"><span class="nav-bullet">04</span> 설비현황</a>
     <div class="nav-section">02　설비 · 인프라</div>
-    <div class="nav-item"><span class="nav-bullet">05</span> 설비투자</div><div class="nav-item"><span class="nav-bullet">06</span> 설비 Layout</div><div class="nav-item"><span class="nav-bullet">07</span> 설비 제원정보</div><div class="nav-item"><span class="nav-bullet">08</span> 공사 · Hook-up</div>
-    <div class="nav-section">03　생산 최적화</div><div class="nav-item"><span class="nav-bullet">09</span> 생산성</div><div class="nav-item"><span class="nav-bullet">10</span> 공정 · 물류</div>
-    <div class="nav-section">04　투자 · 일정</div><div class="nav-item"><span class="nav-bullet">11</span> 투자 · 예산</div><div class="nav-item"><span class="nav-bullet">12</span> 일정 · 마일스톤</div>
-    <div class="nav-section">05　기준 · 리스크</div><div class="nav-item"><span class="nav-bullet">13</span> 안전 · 환경</div><div class="nav-item"><span class="nav-bullet">14</span> 리스크 · 이슈</div><div class="nav-item"><span class="nav-bullet">15</span> 기준 · 표준</div>
-    <div class="nav-section">06　보고 · 의사결정</div><div class="nav-item"><span class="nav-bullet">16</span> 보고 · 의사결정</div>
-    <div class="side-end">이 화면은 UI 검토용 프로토타입입니다.<br/>예시 데이터와 브라우저 로컬 저장을 사용합니다.</div>
+    <a class="nav-item" href="./index.html#/investment"><span class="nav-bullet">05</span> 설비투자</a>
+    <a class="nav-item" href="./index.html#/layout"><span class="nav-bullet">06</span> 설비 Layout</a>
+    <a class="nav-item" href="./index.html#/specs"><span class="nav-bullet">07</span> 설비 제원정보</a>
+    <a class="nav-item" href="./index.html#/hookup"><span class="nav-bullet">08</span> 공사 · Hook-up</a>
+    <div class="nav-section">03　생산 최적화</div>
+    <a class="nav-item" href="./index.html#/productivity"><span class="nav-bullet">09</span> 생산성</a>
+    <a class="nav-item" href="./index.html#/process"><span class="nav-bullet">10</span> 공정 · 물류</a>
+    <div class="nav-section">04　투자 · 일정</div>
+    <a class="nav-item" href="./index.html#/budget"><span class="nav-bullet">11</span> 투자 · 예산</a>
+    <a class="nav-item" href="./index.html#/milestones"><span class="nav-bullet">12</span> 일정 · 마일스톤</a>
+    <div class="nav-section">05　기준 · 리스크</div>
+    <a class="nav-item" href="./index.html#/safety"><span class="nav-bullet">13</span> 안전 · 환경</a>
+    <a class="nav-item" href="./index.html#/issues"><span class="nav-bullet">14</span> 리스크 · 이슈</a>
+    <a class="nav-item" href="./index.html#/standards"><span class="nav-bullet">15</span> 기준 · 표준</a>
+    <div class="nav-section">06　보고 · 의사결정</div>
+    <a class="nav-item" href="./index.html#/reports"><span class="nav-bullet">16</span> 보고 · 의사결정</a>
+    <button class="sidebar-collapse" id="sidebarCollapse" type="button" title="왼쪽 메뉴 접기 / 펼치기">⇤ 메뉴 접기</button><div class="side-end">16개 메뉴 연결 · 세부 페이지 순차 개발<br/>지표는 가상 데이터 · GitHub 공유 저장 별도 연결</div>
   </aside>
   <div class="content">
-    <header class="topbar"><button class="mobile-nav" id="mobileHome" title="메인 대시보드로 이동">⌂</button><div class="top-search">⌕ <input id="globalSearch" placeholder="라인, FAB, 동, 구역, Room 검색 (예: A라인, 2F)" autocomplete="off"/></div><div class="top-actions"><span class="top-tag">EDS　/　라인 기본정보</span><span class="avatar">LP</span><span>라인기획팀</span></div></header>
+    <header class="topbar"><button class="mobile-nav" id="mobileHome" title="메인 대시보드로 이동">⌂</button><div class="top-search">⌕ <input id="globalSearch" placeholder="라인, FAB, 동, 구역, Room 검색 (예: A라인, 2F)" autocomplete="off"/></div><div class="top-actions"><label class="quick-nav"><span class="sr-only">업무 메뉴 바로가기</span><select id="moduleJump" aria-label="전체 16개 업무 메뉴 이동"><option value="">업무 메뉴 바로가기 (16개)</option><option value="./line-info.html">01. 라인 기본정보</option><option value="./index.html#/production">02. 생산계획</option><option value="./index.html#/capacity">03. 생산능력(CAPA)</option><option value="./index.html#/equipment">04. 설비현황</option><option value="./index.html#/investment">05. 설비투자</option><option value="./index.html#/layout">06. 설비 Layout</option><option value="./index.html#/specs">07. 설비 제원정보</option><option value="./index.html#/hookup">08. 공사 · Hook-up</option><option value="./index.html#/productivity">09. 생산성</option><option value="./index.html#/process">10. 공정 · 물류</option><option value="./index.html#/budget">11. 투자 · 예산</option><option value="./index.html#/milestones">12. 일정 · 마일스톤</option><option value="./index.html#/safety">13. 안전 · 환경</option><option value="./index.html#/issues">14. 리스크 · 이슈</option><option value="./index.html#/standards">15. 기준 · 표준</option><option value="./index.html#/reports">16. 보고 · 의사결정</option></select></label><span class="top-tag">EDS　/　라인 기본정보</span><span class="avatar">LP</span><span>라인기획팀</span></div></header>
     <main class="main">
       <div class="page-head">
-        <div><div class="title-pre">LINE & FACILITY INFORMATION</div><h1>01. 라인 기본정보 <span class="demo-label">UI 데모 · 가상 데이터</span></h1><p>라인별 공간, 층, 바닥, 층고, 환경, 접근성, 도면 정보를 통합 관리합니다.</p></div>
-        <div class="version-top"><span>최신 버전 <strong id="topVersion">v1.2</strong></span><span>최종 수정일 <strong id="lastEditDate">—</strong></span><span>수정자 <strong id="lastEditor">—</strong></span></div>
+        <div><div class="title-pre">LINE & FACILITY INFORMATION</div><h1>01. 라인 기본정보 <span class="demo-label">v4.0 · 가상 데이터</span></h1><p>라인별 공간, 층, 바닥, 층고, 환경, 접근성, 도면 정보를 통합 관리합니다.</p></div>
+        <div class="version-top"><button class="btn fit-btn" id="fitScreen" type="button" title="모니터에 대시보드 맞추기">▣ 한 화면 맞춤</button><span>최신 버전 <strong id="topVersion">v1.2</strong></span><span>최종 수정일 <strong id="lastEditDate">—</strong></span><span>수정자 <strong id="lastEditor">—</strong></span></div>
       </div>
       <section class="filters" aria-label="조회 필터">
         <div class="filter-field"><label for="fSite">사업장</label><select id="fSite"></select></div>
@@ -59,18 +213,45 @@
         <article class="kpi"><div class="kpi-icon">▦</div><div><div class="kpi-label">클린면적 합계</div><div class="kpi-value"><span id="kpiClean">—</span><small>m²</small></div></div></article>
         <article class="kpi"><div class="kpi-icon">▢</div><div><div class="kpi-label">가용면적 합계</div><div class="kpi-value"><span id="kpiAvail">—</span><small>m²</small></div></div></article>
       </section>
-      <section class="vis-grid" aria-label="공간 분석 그래프">
-        <div class="panel"><div class="panel-header"><h2>라인별 면적 비교 <small>(Top 10)</small></h2><div class="legend"><span><i class="dot"></i> 건설면적</span><span><i class="dot purple"></i> 클린면적</span><span><i class="dot cyan"></i> 가용면적</span></div></div><div id="barChart" class="chart-body"></div></div>
-        <div class="panel"><div class="panel-header"><h2>라인별 층 구성 <small>(최대 3개 층)</small></h2><small>클린면적 기준</small></div><div id="floorChart" class="floor-chart"></div></div>
-        <div class="panel"><div class="panel-header"><h2>라인 × 층 가용면적 <small>(m²)</small></h2><small>클린면적 대비 가용률</small></div><div id="heatmap" class="heat-wrap"></div></div>
+      <div class="workspace-layout"><div class="workspace-core"><section class="vis-grid" aria-label="공간 분석 그래프">
+        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인별 면적 비교 <small>(Top 10)</small></h2><div class="legend"><span><i class="dot"></i> 건설면적</span><span><i class="dot purple"></i> 클린면적</span><span><i class="dot cyan"></i> 가용면적</span></div><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="그래프 최대화 / 원래 크기" aria-label="최대화">⤢ 최대화</button><button type="button" class="panel-action" data-panel-action="minimize" title="그래프 최소화 / 펼치기" aria-label="최소화">− 최소화</button></div></div><div id="barChart" class="chart-body"></div></div>
+        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인별 층 구성 <small>(최대 3개 층)</small></h2><small>클린면적 기준</small><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="그래프 최대화 / 원래 크기" aria-label="최대화">⤢ 최대화</button><button type="button" class="panel-action" data-panel-action="minimize" title="그래프 최소화 / 펼치기" aria-label="최소화">− 최소화</button></div></div><div id="floorChart" class="floor-chart"></div></div>
+        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인 × 층 가용면적 <small>(m²)</small></h2><small>클린면적 대비 가용률</small><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="그래프 최대화 / 원래 크기" aria-label="최대화">⤢ 최대화</button><button type="button" class="panel-action" data-panel-action="minimize" title="그래프 최소화 / 펼치기" aria-label="최소화">− 최소화</button></div></div><div id="heatmap" class="heat-wrap"></div></div>
       </section>
       <section class="raw-block">
         <div class="raw-title"><div><h2>Raw Data <small id="rawCount">(—)</small></h2><small>원본 엑셀과 동일한 46개 필드 · 라인/층 고정 열 · 좌우 스크롤</small></div>
-          <div class="raw-actions"><button class="btn" id="downloadTemplate">⇩ RAW 양식 다운로드</button><button class="btn" id="downloadCurrent">⇩ 최신 RAW 다운로드</button><button class="btn primary" id="openUpload">↥ 수정본 업로드</button><button class="btn success" id="openHistory">◷ 변경이력 보기</button><button class="btn" id="openSync">⟳ GitHub 공유 연결</button></div></div>
+          <div class="raw-actions"><button class="btn" id="downloadTemplate">⇩ RAW 양식 다운로드</button><button class="btn" id="downloadCurrent">⇩ 최신 RAW 다운로드</button><button class="btn primary" id="openUpload">↥ 수정본 업로드</button><button class="btn success" id="openHistory">◷ 변경이력 보기</button><button class="btn" id="openSync">⟳ GitHub 공유 연결</button><button type="button" class="btn" data-panel-action="maximize" title="표 최대화">⤢ 표 최대화</button><button type="button" class="btn" data-panel-action="minimize" title="표 최소화">− 표 최소화</button></div></div>
         <div class="table-holder" id="rawTableHolder"><table class="raw-table" id="rawTable"></table></div>
         <div class="raw-footer"><span>조회 <strong id="footerCount">0</strong>개 층 · 전체 <strong id="footerAll">0</strong>개 층</span><span id="dataVersion">현재 데이터 버전 —</span> <span id="syncIndicator" class="sync-indicator" title="저장 위치">● 브라우저 테스트</span><span>행을 클릭하면 해당 층의 주요 정보를 확인합니다.</span></div>
       </section>
-      <p class="footer-note">※ 데모 안내: 모든 수치는 가상 데이터입니다. 업로드·비밀번호 확인·버전 저장은 이 브라우저 내 테스트 기능이며, 사내 인증·서버 저장·공유 변경이력은 아직 연결되지 않았습니다.</p>
+      </div>
+      <aside class="management-rail" aria-label="엑셀 수정 및 버전 관리">
+        <section class="rail-card upload-rail">
+          <div class="rail-heading"><h2>↥ 수정본 업로드</h2><span class="mini-chip">검증 후 반영</span></div>
+          <form id="railUploadForm" class="rail-form">
+            <label for="railAuthor">작성자 이름 <em>*</em></label><input id="railAuthor" maxlength="50" placeholder="수정자 이름" required autocomplete="off"/>
+            <label for="railPassword">업로드 비밀번호 <em>*</em></label><input id="railPassword" type="password" placeholder="업로드 비밀번호" required autocomplete="off"/>
+            <label for="railReason">수정 사유 <em>*</em></label><input id="railReason" placeholder="예: 면적 변경 및 도면 개정" required maxlength="500"/>
+            <label for="railFile">수정된 Excel 파일 <em>*</em></label><input id="railFile" type="file" accept=".xlsx" required aria-describedby="railUploadHint"/>
+            <p class="rail-hint" id="railUploadHint">최신 RAW를 다운로드 후 수정하세요. 검증 화면에서 변경 전후를 확인하고 최종 반영합니다.</p>
+            <button type="submit" class="btn primary rail-primary">파일 검증 및 변경 미리보기</button>
+          </form>
+          <div class="rail-meta"><span id="railSaveStatus">● 테스트 데이터 · 예시</span><button id="railConnect" class="quiet-link" type="button">GitHub 공유 연결</button></div>
+        </section>
+        <section class="rail-card rail-history">
+          <div class="rail-heading"><h2>◷ 변경이력 / 버전 조회</h2><button id="railAllHistory" class="quiet-link" type="button">전체보기 ›</button></div>
+          <div id="railHistoryList" class="rail-history-list" aria-live="polite"></div>
+          <div class="rail-history-actions"><button id="railViewRaw" type="button" class="btn">RAW 보기</button><button id="railCompare" type="button" class="btn">변경 비교</button><button id="railDownload" type="button" class="btn">↓ 다운로드</button></div>
+        </section>
+      </aside></div>
+      <section class="utility-grid" aria-label="편의 기능과 데이터 상태">
+        <article class="utility-card"><div class="utility-head"><h2>▤ 작업 흐름</h2><small>라인 기본정보 업데이트</small></div>
+          <div class="steps"><button type="button" data-utility="download">① 최신 RAW 받기</button><span>→</span><button type="button" data-utility="upload">② 엑셀 수정·업로드</button><span>→</span><button type="button" data-utility="verify">③ 변경 검증</button><span>→</span><button type="button" data-utility="history">④ 버전·이력 확인</button></div>
+        </article>
+        <article class="utility-card"><div class="utility-head"><h2>⌘ 빠른 기능</h2></div><div class="utility-actions"><button id="lineCompare" type="button">라인 / 층 비교</button><button id="focusLineFilter" type="button">라인 필터 적용</button><button id="focusFloor" type="button">층 구성 비교</button></div></article>
+        <article class="utility-card quality-card"><div class="utility-head"><h2>⚑ 데이터 품질 현황</h2><small id="qualityCount">검사 중</small></div><div id="qualityMessages" class="quality-messages"></div><button type="button" class="quiet-link" id="qualityDetail">검증 항목 자세히 보기 ›</button></article>
+      </section>
+      <p class="footer-note">※ 데모 안내: 모든 수치는 가상 데이터입니다. 업로드·비밀번호 확인·버전 저장은 이 브라우저 내 테스트 기능이며, 브라우저 테스트용 비밀번호는 실제 보안 수단이 아닙니다. 데이터 공유는 GitHub 인증 연결 및 권한 확인이 필요합니다.</p>
     </main>
   </div>
 </div>
@@ -93,6 +274,7 @@
 </div>
 <div class="shade" id="uploadShade" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="uploadHeading"><div class="modal-header"><h2 id="uploadHeading">↥ 수정본 엑셀 업로드</h2><button class="btn" id="closeUpload">✕ 닫기</button></div><form id="uploadForm"><div class="modal-body"><div class="notice">최신 RAW 파일을 수정한 뒤 업로드하세요. 원본과 비교한 내용을 검증하고 <strong>최종 반영</strong>을 눌러야 새 버전이 생성됩니다.</div><div style="height:14px"></div><div class="field"><label for="uploadAuthor">수정자 이름 <span class="req">*</span></label><input id="uploadAuthor" required maxlength="50" autocomplete="off" placeholder="작성자 이름 입력"/></div><div class="field"><label for="uploadPassword">업로드 비밀번호 <span class="req">*</span></label><input id="uploadPassword" required type="password" placeholder="비밀번호 입력" autocomplete="off"/></div><div class="field"><label for="uploadReason">수정 사유 <span class="req">*</span></label><textarea id="uploadReason" required maxlength="500" placeholder="예: A라인 2F 가용면적 및 반입구 특성 갱신"></textarea></div><label class="upload-box" for="uploadFile"><span style="font-size:25px">▣</span><strong id="uploadFileName">엑셀 (.xlsx) 파일 선택</strong><small>기존 RAW 양식의 46개 열 구조 사용 · 최대 5 MB</small><input type="file" id="uploadFile" accept=".xlsx" required/></label><div class="notice warning">보안 안내: 이 버전은 UI·업로드 흐름 검토용입니다. 비밀번호 검증이 브라우저 안에서만 이뤄지므로 실데이터 보안 수단으로 사용할 수 없습니다.</div><div id="previewBox" hidden></div></div><div class="dialog-actions"><button type="button" class="btn" id="cancelUpload">취소</button><button type="submit" class="btn primary" id="verifyUpload">변경사항 검증</button><button type="button" class="btn success" id="applyUpload" hidden>✓ 최종 반영</button></div></form></section></div>
 <div class="shade" id="detailShade" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="detailHeading"><div class="modal-header"><h2 id="detailHeading">라인 · 층 상세정보</h2><button class="btn" id="closeDetail">✕ 닫기</button></div><div class="modal-body" id="detailBody"></div><div class="dialog-actions"><button class="btn primary" id="closeDetailBottom">확인</button></div></section></div>
+<div class="shade" id="compareShade" hidden><section class="dialog compare-dialog" role="dialog" aria-modal="true" aria-labelledby="compareTitle"><div class="modal-header"><h2 id="compareTitle">라인 · 층 설치조건 비교</h2><button class="btn" type="button" id="closeCompare">✕ 닫기</button></div><div class="modal-body"><div class="notice">두 라인·층을 선택하면 최신 RAW 데이터의 공간·바닥하중·층고·Access Floor·반입구 조건을 나란히 비교합니다.</div><div class="compare-pickers"><label>대상 1 <select id="compareA"></select></label><label>대상 2 <select id="compareB"></select></label></div><div id="compareResults" class="history-raw"></div></div><div class="dialog-actions"><button class="btn" type="button" id="closeCompareBottom">닫기</button></div></section></div>
 <div class="toast" id="toast" hidden></div>
 <script>
 (()=>{'use strict';
@@ -137,8 +319,8 @@ function initFilters(){let all=latest().rows;opts('fSite',all.map(x=>x['사업�
 function filterRows(){let r=latest().rows,fil={fSite:'사업장명',fFab:'FAB명',fLine:'라인명',fFloor:'층',fDong:'동'};for(const [id,col]of Object.entries(fil)){let q=byId(id).value;if(q)r=r.filter(x=>String(x[col])===q);}const search=byId('globalSearch').value.trim().toLowerCase();if(search)r=r.filter(x=>['라인 ID','라인명','층','사업장명','FAB명','건물코드','동','구역','Bay','Room'].some(k=>String(x[k]??'').toLowerCase().includes(search)));return r;}
 function render(){const rows=filterRows();state.view=rows;const set=new Set(rows.map(r=>r['라인 ID']));byId('kpiLines').textContent=fmt(set.size);byId('kpiFloors').textContent=fmt(rows.length);byId('kpiBuilt').textContent=fmt(rows.reduce((v,r)=>v+num(r['건설면적 (m²)']),0));byId('kpiClean').textContent=fmt(rows.reduce((v,r)=>v+num(r['클린면적 (m²)']),0));byId('kpiAvail').textContent=fmt(rows.reduce((v,r)=>v+num(r['가용면적 (m²)']),0));byId('topVersion').textContent=latest().version;byId('lastEditDate').textContent=latest().date;byId('lastEditor').textContent=latest().author;byId('dataVersion').textContent=`최신 반영 데이터 ${latest().version}`;byId('rawCount').textContent=`(${fmt(rows.length)}개 층)`;byId('footerCount').textContent=fmt(rows.length);byId('footerAll').textContent=fmt(latest().rows.length);renderBars(rows);renderFloor(rows);renderHeat(rows);renderTable(rows);}
 function rollup(rows){const m=new Map();for(const r of rows){let key=r['라인 ID'];if(!m.has(key))m.set(key,{line:r['라인명'],id:key,built:0,clean:0,avail:0,byFloor:{}});let x=m.get(key);x.built+=num(r['건설면적 (m²)']);x.clean+=num(r['클린면적 (m²)']);x.avail+=num(r['가용면적 (m²)']);x.byFloor[r['층']]=(x.byFloor[r['층']]||0)+num(r['클린면적 (m²)']);}return [...m.values()].sort((a,b)=>a.id.localeCompare(b.id));}
-function renderBars(rows){let lines=rollup(rows).slice(0,10),w=710,hgt=280;let max=Math.max(1,...lines.map(x=>x.built));let gridTop=38,bot=233,scale=195/max;let ticks=[0,.25,.5,.75,1].map(p=>{let y=bot-p*195;return `<line class="svg-grid" x1="67" x2="700" y1="${y}" y2="${y}"/><text class="svg-tick" x="55" y="${y+4}" text-anchor="end">${fmt(max*p)}</text>`}).join('');const slot=633/Math.max(lines.length,1);let bars=lines.map((r,i)=>{let cx=67+slot*(i+.5),bw=Math.max(4,Math.min(15,slot/4.4));return [['built','#66a7ff'],['clean','#ad91f1'],['avail','#36d2ce']].map(([key,color],j)=>{let v=r[key],bh=v*scale;return `<rect x="${cx+(j-1)*(bw+2)-bw/2}" y="${bot-bh}" width="${bw}" height="${bh}" rx="2" fill="${color}"><title>${h(r.line)} ${key==='built'?'건설':key==='clean'?'클린':'가용'} ${fmt(v)} m²</title></rect>`}).join('')+`<text class="svg-axis" x="${cx}" y="251" text-anchor="middle">${h(r.line)}</text>`;}).join('');byId('barChart').innerHTML=lines.length?`<svg viewBox="0 0 ${w} ${hgt}" role="img" aria-label="라인별 건설 클린 가용면적 비교"><text class="svg-axis" x="68" y="20">면적 (m²)</text>${ticks}${bars}</svg>`:emptyChart();}
-function renderFloor(rows){let lines=rollup(rows);if(!lines.length){byId('floorChart').innerHTML=emptyText();return;}let max=Math.max(1,...lines.map(x=>x.clean));byId('floorChart').innerHTML=`<div class="floor-legend"><span><i class="dot"></i>1F</span><span><i class="dot cyan"></i>2F</span><span><i class="dot purple"></i>3F</span></div>`+lines.map(r=>{const vals=['1F','2F','3F'].map(f=>r.byFloor[f]||0);return `<div class="floor-row"><span class="nm">${h(r.line)}</span><div class="stack" style="width:${Math.max(1,r.clean/max*100)}%">${vals.map((v,i)=>`<i style="width:${r.clean?v/r.clean*100:0}%" title="${['1F','2F','3F'][i]} 클린면적 ${fmt(v)} m²"></i>`).join('')}</div><small>${fmt(r.clean)}</small></div>`}).join('');}
+function renderBars(rows){let lines=rollup(rows).slice(0,10),w=710,hgt=280;let max=Math.max(1,...lines.map(x=>x.built));let gridTop=38,bot=233,scale=195/max;let ticks=[0,.25,.5,.75,1].map(p=>{let y=bot-p*195;return `<line class="svg-grid" x1="67" x2="700" y1="${y}" y2="${y}"/><text class="svg-tick" x="55" y="${y+4}" text-anchor="end">${fmt(max*p)}</text>`}).join('');const slot=633/Math.max(lines.length,1);let bars=lines.map((r,i)=>{let cx=67+slot*(i+.5),bw=Math.max(4,Math.min(15,slot/4.4));return [['built','#66a7ff'],['clean','#ad91f1'],['avail','#36d2ce']].map(([key,color],j)=>{let v=r[key],bh=v*scale;return `<rect x="${cx+(j-1)*(bw+2)-bw/2}" y="${bot-bh}" width="${bw}" height="${bh}" rx="2" fill="${color}"><title>${h(r.line)} ${key==='built'?'건설':key==='clean'?'클린':'가용'} ${fmt(v)} m²</title></rect>`}).join('')+`<text class="svg-value" x="${cx}" y="${Math.max(34,bot-r.built*scale-8)}" text-anchor="middle">${fmt(r.built)}</text><text class="svg-axis" x="${cx}" y="251" text-anchor="middle">${h(r.line)}</text>`;}).join('');byId('barChart').innerHTML=lines.length?`<svg viewBox="0 0 ${w} ${hgt}" role="img" aria-label="라인별 건설 클린 가용면적 비교"><text class="svg-axis" x="68" y="20">면적 (m²)</text>${ticks}${bars}</svg><div class="exact-values"><div class="exact-hint">건설 / 클린 / 가용면적 (m²) · 정확한 수치 (가로 스크롤 가능)</div><div class="exact-scroll">${lines.map(r=>`<div class="exact-col"><b>${h(r.line)}</b><span>${fmt(r.built)}</span><span>${fmt(r.clean)}</span><span>${fmt(r.avail)}</span></div>`).join('')}</div></div>`:emptyChart();}
+function renderFloor(rows){let lines=rollup(rows);if(!lines.length){byId('floorChart').innerHTML=emptyText();return;}let max=Math.max(1,...lines.map(x=>x.clean));byId('floorChart').innerHTML=`<div class="floor-legend"><span><i class="dot"></i>1F</span><span><i class="dot cyan"></i>2F</span><span><i class="dot purple"></i>3F</span></div>`+lines.map(r=>{const vals=['1F','2F','3F'].map(f=>r.byFloor[f]||0);return `<div class="floor-row"><span class="nm">${h(r.line)}</span><div class="stack" style="width:${Math.max(1,r.clean/max*100)}%">${vals.map((v,i)=>`<i style="width:${r.clean?v/r.clean*100:0}%" title="${['1F','2F','3F'][i]} 클린면적 ${fmt(v)} m²">${v?`<b>${fmt(v)}</b>`:''}</i>`).join('')}</div><small>${fmt(r.clean)}</small></div>`}).join('');}
 function renderHeat(rows){const lines=rollup(rows);let map=new Map(rows.map(r=>[r['라인 ID']+'|'+r['층'],r]));const cell=r=>{if(!r)return '<td class="empty">—</td>';let cl=num(r['클린면적 (m²)']),av=num(r['가용면적 (m²)']),ratio=cl?av/cl:0;let a=Math.max(.25,Math.min(.84,.2+ratio*2.1));let color=ratio>.24?`rgba(22,183,158,${a})`:ratio>.19?`rgba(25,137,190,${a})`:`rgba(114,92,183,${a})`;return `<td style="background:${color}" title="가용면적 ${fmt(av)} m² · 가용률 ${(ratio*100).toFixed(1)}%">${fmt(av)}</td>`};byId('heatmap').innerHTML=lines.length?`<div class="heat-caption"><span>가용면적 / 층별</span><span>단위 m²</span></div><table class="heat-table"><thead><tr><th>라인</th><th>1F</th><th>2F</th><th>3F</th><th>가용률</th></tr></thead><tbody>${lines.map(l=>`<tr><th>${h(l.line)}</th>${['1F','2F','3F'].map(f=>cell(map.get(l.id+'|'+f))).join('')}<td style="background:#124d75">${l.clean?(l.avail/l.clean*100).toFixed(1):'0.0'}%</td></tr>`).join('')}</tbody></table>`:emptyText();}
 function emptyChart(){return '<div style="display:grid;place-items:center;height:100%;color:#799fbf">조회 결과가 없습니다.</div>'}function emptyText(){return '<div style="display:grid;place-items:center;height:160px;color:#799fbf">조회 결과가 없습니다.</div>'}
 function renderTable(rows){let groups=GROUPS.map(([name,a,b])=>`<th colspan="${b-a}">${h(name)}</th>`).join('');let fields=FIELDS.map((x,i)=>`<th class="${i===0?'sticky1':i===1?'sticky2':i===2?'sticky3':''}">${h(x)}</th>`).join('');let body=rows.map((r,i)=>`<tr data-row-index="${i}" tabindex="0" aria-label="${h(r['라인명'])} ${h(r['층'])} 상세 정보">${FIELDS.map((f,j)=>{let val=r[f],cls=[j===0?'sticky1':j===1?'sticky2':j===2?'sticky3':'',typeof val==='number'?'number':'',f==='가용면적 (m²)'?'available':''].join(' ');let text=val===null||val===undefined||val===''?'—':typeof val==='number'?fmt(val):String(val);return `<td class="${cls}" title="${h(f)} : ${h(text)}">${h(text)}</td>`}).join('')}</tr>`).join('');byId('rawTable').innerHTML=`<thead><tr class="group-row">${groups}</tr><tr class="field-row">${fields}</tr></thead><tbody>${body||`<tr><td colspan="${FIELDS.length}" style="padding:30px;color:#9fbede">조회 결과가 없습니다.</td></tr>`}</tbody>`;}
@@ -173,7 +355,7 @@ async function applyUpload(){
   const previous=latest(),n=Number(previous.version.slice(1)),next='v'+(n+.1).toFixed(1);
   const entry={version:next,date:nowIso(),author:p.author,reason:p.reason,filename:p.filename,rows:clone(p.rows),demo:GH.mode!=='github'};
   const candidate={schema:'eds-line-info-v1',versions:[entry,...state.versions].slice(0,20)};
-  if(GH.mode==='github'){await saveShared(candidate,previous.version);}else{state.versions=candidate.versions;if(!persist())throw Error('로컬 저장 실패: 브라우저 저장공간을 확인해 주세요.');}
+  if(GH.mode==='github'){await saveShared(candidate,previous.version);}else{const oldVersions=state.versions;state.versions=candidate.versions;if(!persist()){state.versions=oldVersions;throw Error('로컬 저장 실패: 브라우저 저장공간을 확인해 주세요.');}}
   if(GH.mode==='github'){state.versions=candidate.versions;persist();syncBadge('● GitHub 공유 저장 완료 · '+next,'github');}
   state.selectedVersion=next;initFilters();render();closeUpload();toast(`${next} 저장 완료 · 대시보드·Raw Data·변경이력 갱신`);
  }catch(error){byId('previewBox').hidden=false;byId('previewBox').insertAdjacentHTML('afterbegin',`<div class="notice warning">${h(error.message||'저장 실패')}</div>`);toast('저장 실패 · 변경사항은 아직 반영되지 않았습니다.');}
@@ -191,7 +373,105 @@ byId('cancelSync').addEventListener('click',closeSync);
 byId('syncForm').addEventListener('submit',connectSync);
 byId('syncShade').addEventListener('click',e=>{if(e.target===byId('syncShade'))closeSync();});
 
-init();initFilters();render();loadPublicShared();
+
+// v3.0: all 16 modules reachable on desktop and mobile; expand/minimize each analysis panel.
+byId('moduleJump').addEventListener('change', function(){ if(this.value) location.href=this.value; });
+document.addEventListener('click', function(e){
+  const btn=e.target.closest('[data-panel-action]'); if(!btn)return;
+  const pane=btn.closest('.adjustable-panel,.raw-block');if(!pane)return;
+  const kind=btn.dataset.panelAction;
+  if(kind==='maximize'){
+    const active=pane.classList.contains('is-maximized');
+    document.querySelectorAll('.adjustable-panel.is-maximized,.raw-block.is-maximized').forEach(el=>el.classList.remove('is-maximized'));
+    if(!active){pane.classList.remove('is-minimized');pane.classList.add('is-maximized');}
+  }else if(kind==='minimize'){
+    pane.classList.remove('is-maximized');pane.classList.toggle('is-minimized');
+  }
+  document.body.classList.toggle('panel-fullscreen',!!document.querySelector('.is-maximized'));
+  document.querySelectorAll('[data-panel-action="maximize"]').forEach(b=>{let enlarged=b.closest('.adjustable-panel,.raw-block')?.classList.contains('is-maximized');b.textContent=enlarged?'↙ 원래 크기':(b.closest('.raw-block')?'⤢ 표 최대화':'⤢ 최대화');});
+  document.querySelectorAll('[data-panel-action="minimize"]').forEach(b=>{let collapsed=b.closest('.adjustable-panel,.raw-block')?.classList.contains('is-minimized');b.textContent=collapsed?'＋ 펼치기':(b.closest('.raw-block')?'− 표 최소화':'− 최소화');});
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){
+  document.querySelectorAll('.adjustable-panel.is-maximized,.raw-block.is-maximized').forEach(el=>el.classList.remove('is-maximized'));
+  document.body.classList.remove('panel-fullscreen');
+  document.querySelectorAll('[data-panel-action="maximize"]').forEach(b=>{b.textContent=b.closest('.raw-block')?'⤢ 표 최대화':'⤢ 최대화';});
+}});
+
+
+// v4.0: operational rail, cross-filter, comparison, quality checks and one-screen density.
+function dataQuality(rows){
+ const missing=[]; const invalid=[]; const seen=new Set();
+ const required=['라인 ID','라인명','층','사업장명','FAB명','건물코드','건설면적 (m²)','클린면적 (m²)','가용면적 (m²)','CAD 도면 링크'];
+ rows.forEach((r,i)=>{
+   const label=(r['라인명']||'라인 미지정')+' '+(r['층']||'층 미지정');
+   for(const col of required)if(r[col]===undefined||r[col]===null||String(r[col]).trim()==='')missing.push(label+' / '+col);
+   const k=KEY(r);if(seen.has(k))invalid.push(label+' / 중복 고유키');seen.add(k);
+   const built=num(r['건설면적 (m²)']),clean=num(r['클린면적 (m²)']),avail=num(r['가용면적 (m²)']);
+   if(built<0||clean<0||avail<0||clean>built||avail>clean)invalid.push(label+' / 면적값 관계 확인');
+   const doors=num(r['반입구 개수']);if(doors>=2&&!r['반입구 2 위치·ID'])missing.push(label+' / 반입구 2 위치');
+ });
+ return {missing,invalid};
+}
+function renderQuality(){
+ const q=dataQuality(latest().rows),n=q.missing.length+q.invalid.length;
+ byId('qualityCount').textContent=n?`확인 ${n}건`:'확인 필요 0건';
+ byId('qualityMessages').innerHTML=`<div class="quality-row"><span>${q.invalid.length?'⚠':'✓'}</span> 입력값·중복 검증 <span class="qty">${q.invalid.length}건</span></div><div class="quality-row"><span>${q.missing.length?'⚠':'✓'}</span> 필수항목 누락 <span class="qty">${q.missing.length}건</span></div>`;
+}
+function renderRail(){
+ const chosen=state.selectedVersion||latest().version;
+ byId('railHistoryList').innerHTML=state.versions.slice(0,8).map(v=>`<button type="button" class="rail-history-row ${v.version===chosen?'selected':''}" data-rail-version="${h(v.version)}" aria-pressed="${v.version===chosen}"><span>${v.version===chosen?'🔘':'○'}</span><b>${h(v.version)}</b><span class="ver-date">${h(v.author)}<small>${h(v.date)} · ${h(v.reason||'')}</small></span></button>`).join('');
+ const st=byId('railSaveStatus');if(st)st.textContent=GH.token?'● GitHub 공유 연결':GH.mode==='github'?'● GitHub 데이터 조회 중 · 수정시 연결 필요':'● 브라우저 테스트 저장';
+ renderQuality();
+}
+function openRailHistory(tab){const chosen=state.selectedVersion;openHistory();state.selectedVersion=chosen||latest().version;setHtab(tab);}
+byId('railHistoryList').addEventListener('click',e=>{const b=e.target.closest('[data-rail-version]');if(!b)return;state.selectedVersion=b.dataset.railVersion;renderRail();});
+byId('railAllHistory').addEventListener('click',()=>openRailHistory('history'));
+byId('railViewRaw').addEventListener('click',()=>openRailHistory('raw'));
+byId('railCompare').addEventListener('click',()=>openRailHistory('compare'));
+byId('railDownload').addEventListener('click',()=>{let v=selectedVersion();exportRows(v.rows,`EDS_Line_RAW_${v.version}.xlsx`);});
+byId('railConnect').addEventListener('click',openSync);
+byId('railUploadForm').addEventListener('submit',e=>{
+ e.preventDefault();const f=byId('railFile').files[0];if(!f){toast('엑셀 파일을 선택해 주세요.');return;}
+ openUpload();byId('uploadAuthor').value=byId('railAuthor').value;byId('uploadPassword').value=byId('railPassword').value;byId('uploadReason').value=byId('railReason').value;
+ try{const transfer=new DataTransfer();transfer.items.add(f);byId('uploadFile').files=transfer.files;byId('uploadFileName').textContent=f.name;byId('uploadForm').requestSubmit(byId('verifyUpload'));}catch(err){toast('업로드 창에서 파일을 선택하고 변경사항 검증을 눌러주세요.');}
+});
+byId('fitScreen').addEventListener('click',()=>{document.body.classList.toggle('fit-mode');const fit=document.body.classList.contains('fit-mode');byId('fitScreen').textContent=fit?'□ 기본 크기':'▣ 한 화면 맞춤';});
+byId('sidebarCollapse').addEventListener('click',()=>{document.body.classList.toggle('nav-compact');byId('sidebarCollapse').textContent=document.body.classList.contains('nav-compact')?'메뉴 펼치기':'⇤ 메뉴 접기';});
+// Click bar/floor/heatmap to apply a line/floor filter. Visible counts and charts all update together.
+function applyLinkedFilter(line,floor){if(line)byId('fLine').value=line;if(floor)byId('fFloor').value=floor;render();toast((line||'전체 라인')+(floor?' '+floor:'')+'로 필터 적용');}
+byId('barChart').addEventListener('click',e=>{const b=e.target.closest('[data-chart-line]');if(b)applyLinkedFilter(b.dataset.chartLine);});
+byId('floorChart').addEventListener('click',e=>{const b=e.target.closest('[data-chart-line]');if(b)applyLinkedFilter(b.dataset.chartLine,b.dataset.chartFloor||'');});
+byId('heatmap').addEventListener('click',e=>{const b=e.target.closest('[data-chart-line]');if(b)applyLinkedFilter(b.dataset.chartLine,b.dataset.chartFloor||'');});
+// Add graph links to generated content after each render without changing the original, numeric labels or layout.
+function activateChartLinks(){
+  const names=rollup(state.view).map(x=>x.line);
+  document.querySelectorAll('#barChart .exact-col').forEach((el,i)=>{if(names[i]){el.dataset.chartLine=names[i];el.role='button';el.tabIndex=0;el.title=names[i]+' 표로 이동';}});
+  document.querySelectorAll('#floorChart .floor-row').forEach((el,i)=>{if(names[i]){el.dataset.chartLine=names[i];el.role='button';el.tabIndex=0;el.title=names[i]+' 데이터 필터';}});
+  document.querySelectorAll('#heatmap tbody tr').forEach((tr,i)=>{if(!names[i])return;tr.querySelectorAll('td').forEach((td,j)=>{td.dataset.chartLine=names[i];if(j<3)td.dataset.chartFloor=['1F','2F','3F'][j];td.title=(td.title||'')+' · 클릭하면 해당 라인·층으로 조회';});});
+}
+const originalRenderV4=render;
+render=function(){originalRenderV4();activateChartLinks();renderRail();};
+// allow keyboard navigation on tappable chart cells
+for(const chartId of ['barChart','floorChart','heatmap'])byId(chartId).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const target=e.target.closest('[data-chart-line]');if(target){e.preventDefault();applyLinkedFilter(target.dataset.chartLine,target.dataset.chartFloor||'');}}});
+function compareOptions(){let rows=latest().rows;return rows.map((r,i)=>({idx:i,label:r['라인명']+' · '+r['층']+' · '+r['FAB명']}));}
+function openLineCompare(floorMode=false){const ops=compareOptions();if(ops.length<2){toast('비교할 데이터가 2개 이상 필요합니다.');return;}for(const id of ['compareA','compareB'])byId(id).innerHTML=ops.map(x=>`<option value="${x.idx}">${h(x.label)}</option>`).join('');let a=0,b=1;if(floorMode){b=Math.max(1,latest().rows.findIndex(r=>r['라인 ID']===latest().rows[0]['라인 ID']&&r['층']!==latest().rows[0]['층']));}byId('compareA').value=String(a);byId('compareB').value=String(b);byId('compareShade').hidden=false;renderCompare();}
+function renderCompare(){let rows=latest().rows,a=rows[Number(byId('compareA').value)],b=rows[Number(byId('compareB').value)];if(!a||!b)return;const columns=['건설면적 (m²)','클린면적 (m²)','가용면적 (m²)','허용하중 (kg/m²)','집중하중 (kN)','건축층고 (mm)','유효높이 (mm)','설비 설치가능 높이 (mm)','Access Floor 높이 (mm)','Access Floor 하부 유효높이 (mm)','하부층고 (mm)','반입구 개수','반입구 1 유효폭 (mm)','반입구 1 유효높이 (mm)','반입구 2 유효폭 (mm)','반입구 2 유효높이 (mm)','청정도'];byId('compareResults').innerHTML=`<table><thead><tr><th>비교 항목</th><th>${h(a['라인명']+' · '+a['층'])}</th><th>${h(b['라인명']+' · '+b['층'])}</th></tr></thead><tbody>${columns.map(k=>`<tr><td>${h(k)}</td><td>${h(a[k]??'—')}</td><td>${h(b[k]??'—')}</td></tr>`).join('')}</tbody></table>`;}
+for(const id of ['compareA','compareB'])byId(id).addEventListener('change',renderCompare);
+for(const id of ['closeCompare','closeCompareBottom'])byId(id).addEventListener('click',()=>byId('compareShade').hidden=true);
+byId('compareShade').addEventListener('click',e=>{if(e.target===byId('compareShade'))byId('compareShade').hidden=true;});
+byId('lineCompare').addEventListener('click',()=>openLineCompare(false));
+byId('focusFloor').addEventListener('click',()=>openLineCompare(true));
+byId('focusLineFilter').addEventListener('click',()=>{byId('fLine').focus();byId('fLine').scrollIntoView({behavior:'smooth',block:'center'});});
+byId('qualityDetail').addEventListener('click',()=>{const q=dataQuality(latest().rows);showDialogQuality(q);});
+byId('qualityMessages').addEventListener('click',()=>{const q=dataQuality(latest().rows);showDialogQuality(q);});
+function showDialogQuality(q){byId('compareShade').hidden=false;byId('compareTitle').textContent='Raw Data 품질 검증 상세';document.querySelector('.compare-pickers').hidden=true;byId('compareResults').innerHTML=`<div class="notice">필수값 누락 ${q.missing.length}건 · 중복·면적 관계 오류 ${q.invalid.length}건</div><div class="history-raw" style="margin-top:10px"><table><thead><tr><th>유형</th><th>확인 대상</th></tr></thead><tbody>${[...q.invalid.map(x=>['입력값',x]),...q.missing.map(x=>['누락',x])].map(row=>`<tr><td>${h(row[0])}</td><td>${h(row[1])}</td></tr>`).join('')||'<tr><td colspan="2">현재 발견된 오류가 없습니다.</td></tr>'}</tbody></table></div>`;}
+byId('lineCompare').addEventListener('click',()=>{document.querySelector('.compare-pickers').hidden=false;byId('compareTitle').textContent='라인 · 층 설치조건 비교';});
+byId('focusFloor').addEventListener('click',()=>{document.querySelector('.compare-pickers').hidden=false;byId('compareTitle').textContent='라인 · 층 설치조건 비교';});
+document.querySelectorAll('[data-utility]').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.utility;if(a==='download')byId('downloadCurrent').click();else if(a==='upload'||a==='verify')byId('railAuthor').focus();else if(a==='history')openRailHistory('history');}));
+// When history changes, reflect the selected version in both visual locations.
+byId('historyOverlay').addEventListener('click',()=>{requestAnimationFrame(renderRail);});
+
+init();initFilters();if(window.innerHeight<=1000&&window.innerWidth>=1350){document.body.classList.add('fit-mode');byId('fitScreen').textContent='□ 기본 크기';}render();loadPublicShared();
 })();
 </script>
 </body>
