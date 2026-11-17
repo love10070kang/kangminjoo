@@ -58,15 +58,19 @@ const ALERTS = [
 const STATE={route:'dashboard',collapsed:new Set(),line:'all',view:'3d',alerts:'all',startYear:2026};
 
 function renderNavigation(){
-  let html=`<a class="nav-home ${STATE.route==='dashboard'?'active':''}" href="#/dashboard">${icon('home')}<span>홈 · 통합 대시보드</span></a>`;
+  const homeActive=STATE.route==='dashboard';
+  let html=`<a class="nav-home ${homeActive?'active':''}" href="#/dashboard">⌂　홈 · 통합 대시보드</a>`;
   for(const group of GROUPS){
-    const collapsed=STATE.collapsed.has(group.id);
-    html+=`<section class="nav-group ${collapsed?'collapsed':''}"><button type="button" class="nav-section-toggle" data-toggle-group="${group.id}" aria-expanded="${!collapsed}">${icon(group.icon,'nav-group-icon')}<span>${esc(group.name)}</span>${icon('chevron','chevron')}</button><div class="nav-items">`;
-    for(const key of group.keys){const m=MODULES[key];html+=`<a class="nav-link ${STATE.route===key?'active':''}" href="${key==='lines'?'./line-info.html':'#/'+key}">${icon(m.icon,'nav-symbol')}<span class="nav-num">${m.number}</span><span class="nav-label">${esc(m.name)}</span></a>`;}
-    html+='</div></section>';
+    const groupTitles={line:'01　라인 운영현황',facility:'02　설비 · 인프라',performance:'03　생산 최적화',schedule:'04　투자 · 일정',risk:'05　기준 · 리스크',decision:'06　보고 · 의사결정'};
+    html+=`<div class="nav-section">${esc(groupTitles[group.id]||group.name)}</div>`;
+    for(const key of group.keys){const m=MODULES[key];
+      const label=m.name.replace('공사·Hook-up','공사 · Hook-up').replace('투자·예산','투자 · 예산').replace('일정·마일스톤','일정 · 마일스톤').replace('안전·환경','안전 · 환경').replace('리스크·이슈','리스크 · 이슈').replace('기준·표준','기준 · 표준').replace('공정·물류','공정 · 물류').replace('보고·의사결정','보고 · 의사결정');
+      html+=`<a class="nav-item ${STATE.route===key?'active':''}" href="${key==='lines'?'./line-info.html':'#/'+key}" ${STATE.route===key?'aria-current="page"':''}><span class="nav-bullet">${m.number}</span><span class="nav-label">${esc(label)}</span></a>`;
+    }
   }
   $('sideNav').innerHTML=html;
 }
+
 function kpiCard(iconName,name,number,unit,sub,color='blue',progress=false){
   return `<article class="kpi-card"><div class="kpi-icon ${color}">${icon(iconName)}</div><div class="kpi-info"><div class="kpi-name">${name}</div><div class="kpi-number">${number}<small> ${unit}</small></div>${progress?'<div class="kpi-progress"><span></span></div>':`<div class="kpi-sub">${sub}</div>`}</div></article>`;
 }

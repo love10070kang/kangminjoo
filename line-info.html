@@ -160,6 +160,158 @@ body.fit-mode .utility-head{padding:5px 8px}
 @media(max-width:1200px){.workspace-layout{grid-template-columns:1fr}.management-rail{display:grid;grid-template-columns:1fr 1fr}.vis-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.utility-grid{grid-template-columns:1fr 1fr}.quality-card{grid-column:1/-1}.rail-history-list{max-height:220px}}
 @media(max-width:950px){.vis-grid{grid-template-columns:1fr 1fr}.vis-grid .panel:last-child{grid-column:1/-1}.utility-grid{grid-template-columns:1fr}}
 @media(max-width:720px){.management-rail{display:flex}.workspace-layout{grid-template-columns:1fr}.vis-grid{grid-template-columns:1fr}.vis-grid .panel:last-child{grid-column:auto}.rail-form{grid-template-columns:84px minmax(0,1fr)}.steps{flex-wrap:wrap}.kpis{grid-template-columns:repeat(2,1fr)}.version-top{margin-top:5px}.fit-btn{display:none}}
+
+/* v4.1 Adaptive compact desktop layout. Approved 5 KPIs + 3 charts + RAW remain unchanged. */
+:root{--aside:204px;--top:52px;--v41-gap:7px}
+html{scrollbar-gutter:auto}
+body{overflow-x:hidden}
+.side{scrollbar-width:thin;scrollbar-color:#4a81b7 #081b34}
+.brand{height:54px;padding:10px 12px}.brand strong{font-size:13px}
+.side .nav-home{margin:6px 9px 7px;padding:8px 11px}
+.nav-section{margin:5px 8px 0;padding:8px 7px 2px;font-size:10px}
+.nav-item{margin:1px 9px;padding:7px 9px;min-height:31px}
+.side-end{margin:8px 12px;padding:6px 8px}
+.sidebar-collapse{margin:6px 10px;width:calc(100% - 20px);padding:6px}
+.topbar{height:var(--top);padding:0 13px;gap:10px}
+.top-search{padding:8px 11px;max-width:500px;width:min(500px,45%)}
+.main{max-width:none;width:100%;min-width:0;padding:8px 10px 10px}
+.page-head{gap:7px;min-height:52px;margin-bottom:7px;align-items:center}
+.title-pre{font-size:9px;margin-bottom:1px}.page-head h1{font-size:22px;margin-bottom:2px}.page-head p{font-size:11px}
+.version-top{gap:5px;flex-wrap:wrap;align-items:center}.version-top span{padding:5px 7px;font-size:9.5px}.version-top .btn{padding:6px 8px;font-size:10px}
+.filters{padding:5px 7px;margin-bottom:7px;gap:6px;flex-wrap:nowrap;min-height:37px}
+.filter-field{min-width:0;flex:1 1 0;gap:5px}.filter-field label{font-size:10px}.filter-field select{height:27px;font-size:10px}
+.filter-actions{flex:0 0 auto;gap:4px}.filter-actions .btn{padding:6px 7px;font-size:10px}
+.kpis{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:7px;margin-bottom:7px}
+.kpi{min-width:0;min-height:71px;padding:9px 9px;gap:8px}.kpi-icon{width:34px;height:34px;font-size:18px}.kpi-label{font-size:10px}.kpi-value{font-size:clamp(17px,1.68vw,24px);margin-top:4px;letter-spacing:-.4px}.kpi-value small{font-size:11px}
+.workspace-layout{display:block!important;min-width:0;max-width:100%}
+.workspace-core{width:100%;display:flex;flex-direction:column;gap:7px;min-width:0}
+.vis-grid{display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1.05fr)!important;gap:7px;min-height:0!important;margin:0}
+.vis-grid .panel:last-child{grid-column:auto!important}
+.panel{min-width:0}
+.panel-header{min-height:33px;padding:6px 8px;gap:4px;flex-wrap:nowrap!important}
+.panel-header h2{font-size:clamp(10px,.95vw,13px);white-space:nowrap}.panel-header small{font-size:9px}
+/* value legend lives inside the body so title/buttons remain legible */
+.vis-grid .panel:first-child .panel-header .legend{display:none}
+.panel-controls{display:flex;gap:2px;flex-wrap:nowrap}
+.panel-action{padding:4px 5px;font-size:9px;white-space:nowrap}
+.chart-body,.floor-chart,.heat-wrap{height:var(--v41-chart-h,240px)!important;max-height:none;min-height:0;overflow:hidden}
+.chart-body{padding:3px 5px 5px;display:flex;flex-direction:column;min-width:0}
+.chart-body svg{width:100%;height:calc(100% - 37px)!important;min-height:0!important;flex:1 1 auto;max-height:215px}
+.exact-values{height:34px;flex:0 0 34px;padding:2px 3px;border-top:1px solid #27456b}
+.exact-hint{font-size:9px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 0 3px}
+.exact-scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:1px;scrollbar-width:thin;scrollbar-color:#376d9a transparent}
+.exact-col{flex-basis:60px;padding:1px 2px;font-size:9px;line-height:1.15;grid-template-columns:1fr 1fr;gap:1px 2px}
+.exact-col b{font-size:9px;grid-row:span 3;align-self:center}
+.exact-col span{font-size:9px}
+.floor-chart{padding:5px 8px}.floor-legend{margin-bottom:5px;gap:8px;font-size:9px}
+.floor-row{grid-template-columns:37px minmax(0,1fr) 50px;gap:4px;margin-bottom:3px;min-height:18px}
+.floor-row .nm{font-size:10px}.floor-row .stack{height:17px}.floor-row .stack i b{font-size:9px}
+.floor-row small{font-size:9px}
+.heat-wrap{padding:5px 7px}.heat-caption{font-size:9px;margin:0 0 4px}
+.heat-table{font-size:10px;border-spacing:1px;table-layout:fixed}.heat-table th{padding:3px 2px;font-size:9px}.heat-table td{padding:4px 2px;font-size:10px}
+.raw-block{min-width:0;margin:0}.raw-title{display:flex;align-items:center;gap:6px;padding:7px 9px;flex-wrap:wrap}
+.raw-title h2{font-size:15px}.raw-title small{font-size:9px}
+.raw-actions{gap:3px;justify-content:flex-end}.raw-actions .btn{font-size:9px;padding:5px 7px}
+.raw-block .table-holder{height:var(--v41-raw-h,162px)!important;max-height:var(--v41-raw-h,162px)!important;overflow:auto}
+.raw-table th,.raw-table td{padding:7px 8px}.raw-footer{padding:6px 9px;font-size:9px;gap:6px;flex-wrap:nowrap}
+/* Management rail is accessible as a drawer, not a permanent 254px column. */
+.manage-backdrop[hidden]{display:none!important}.manage-backdrop{position:fixed;inset:0;background:#000a;z-index:1100}
+.management-rail{display:none!important;position:fixed!important;top:0;bottom:0;right:0;width:min(350px,100vw);max-height:100dvh;overflow-y:auto;z-index:1101;grid-template-columns:1fr!important;padding:8px;background:#07172f;box-shadow:-12px 0 46px #000b;align-content:start;gap:8px}
+body.manage-open .management-rail{display:flex!important}
+.manager-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 6px;color:#eff9ff}
+.manager-head strong{font-size:15px}.manager-head .btn{padding:5px 9px}
+.management-rail .rail-form{grid-template-columns:90px minmax(0,1fr)}
+.management-rail .rail-history-list{max-height:260px;min-height:170px}
+/* Legacy helper cards are optional instead of stealing screen height. All actions remain available. */
+.utility-grid{display:none!important;margin-top:7px}
+body.tools-open .utility-grid{display:grid!important;grid-template-columns:1.4fr 1fr 1fr}
+body.tools-open .main{padding-bottom:14px}
+body:not(.tools-open) .footer-note{display:none}
+/* Normal fitted mode: monitor-specific heights, no vertical scrollbars inside charts. */
+body.fit-mode{--v41-chart-h:clamp(205px,calc((100dvh - 485px)*0.89),292px);--v41-raw-h:clamp(118px,calc((100dvh - 625px)*0.85),222px)}
+body.fit-mode .main{padding-top:6px}
+body.fit-mode .page-head{min-height:47px;margin-bottom:6px}
+body.fit-mode .filters{margin-bottom:6px}
+body.fit-mode .kpis{margin-bottom:6px}
+body.fit-mode .kpi{min-height:68px;padding:7px 9px}
+body.fit-mode .vis-grid{margin:0}
+body.fit-mode .chart-body,body.fit-mode .floor-chart,body.fit-mode .heat-wrap{height:var(--v41-chart-h,240px)!important}
+body.fit-mode .chart-body svg{height:calc(100% - 34px)!important}
+body.fit-mode .raw-block .table-holder{height:var(--v41-raw-h,145px)!important;max-height:var(--v41-raw-h,145px)!important}
+body.fit-mode .raw-title{padding:5px 8px}
+/* Enlarged charts and RAW must win over compact settings. */
+.adjustable-panel.is-maximized,.raw-block.is-maximized{inset:10px!important;z-index:1500!important}
+.adjustable-panel.is-maximized .chart-body,.adjustable-panel.is-maximized .floor-chart,.adjustable-panel.is-maximized .heat-wrap{height:auto!important;max-height:none!important;flex:1 1 auto;overflow:auto!important}
+.adjustable-panel.is-maximized .chart-body svg{height:calc(100% - 70px)!important;max-height:none;min-height:280px!important}
+.adjustable-panel.is-maximized .exact-values{height:67px;flex:0 0 67px}
+.adjustable-panel.is-maximized .exact-col{flex-basis:85px;grid-template-columns:1fr}
+.adjustable-panel.is-maximized .exact-col b{grid-row:auto}
+.raw-block.is-maximized .table-holder,body.fit-mode .raw-block.is-maximized .table-holder{height:auto!important;max-height:none!important;flex:1 1 auto}
+/* Collapse stays collapsed; never remove previously approved data. */
+.adjustable-panel.is-minimized .chart-body,.adjustable-panel.is-minimized .floor-chart,.adjustable-panel.is-minimized .heat-wrap{display:none!important}
+/* Avoid forcing five cards or three charts into narrow/mobile view. */
+@media(max-width:1180px){.version-top span{display:none}.page-head{min-height:52px}.kpi{gap:5px;padding:7px}.kpi-icon{width:30px;height:30px}.kpi-value{font-size:19px}.vis-grid{grid-template-columns:1.25fr 1fr 1.1fr!important}.raw-title{align-items:flex-start}.raw-actions .btn{padding:5px}.top-search{width:40%}}
+@media(max-width:1010px){:root{--aside:0px}.side{display:none}.shell{grid-template-columns:1fr}.topbar{height:54px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr))!important}.vis-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.raw-footer{flex-wrap:wrap}}
+@media(max-width:820px){.page-head{flex-wrap:wrap}.filters{flex-wrap:wrap}.filter-field{min-width:130px}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}.vis-grid{grid-template-columns:1fr!important}.panel-header h2{font-size:13px}.chart-body,.floor-chart,.heat-wrap{height:280px!important}.chart-body svg{height:220px!important}.exact-values{height:46px;flex-basis:46px}.raw-title{flex-direction:column}.raw-actions{justify-content:flex-start}.manager-head{position:sticky;top:0;background:#07172f;z-index:2}}
+@media(max-width:510px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}.top-search{width:55%}.top-actions .top-tag{display:none}.version-top{justify-content:flex-start}}
+
+
+/* Area comparison numeric legibility refinement (v4.1) */
+body:not(.fit-mode){--v41-chart-h:310px;--v41-raw-h:300px}
+#barChart .bar-hit{cursor:pointer}
+#barChart .bar-hit:hover rect{filter:brightness(1.25)}
+#barChart .area-summary{height:31px;flex:0 0 31px;display:flex;align-items:center;justify-content:space-around;gap:7px;background:#092a50;border:1px solid #2b6496;border-radius:5px;padding:0 6px;white-space:nowrap;color:#cbe6ff;overflow:hidden;font-size:10px}
+#barChart .area-summary strong{color:#fff;font-size:11px}
+#barChart .area-summary span{display:flex;align-items:center;gap:3px}
+#barChart .area-summary b{font-variant-numeric:tabular-nums;font-size:11px;color:#f6fcff}
+#barChart .area-summary .dot{width:6px;height:6px}
+#barChart .area-summary .area-unit{color:#8fbdda;font-size:9px}
+#barChart .exact-values{display:none}
+#barChart svg{height:calc(100% - 33px)!important;max-height:none}
+#barChart.is-maximized svg{height:calc(100% - 70px)!important}
+.adjustable-panel.is-maximized #barChart .area-summary{display:none}
+.adjustable-panel.is-maximized #barChart .exact-values{display:block;height:94px;flex:0 0 94px}
+.adjustable-panel.is-maximized #barChart .exact-scroll{overflow-x:auto;align-items:stretch}
+.adjustable-panel.is-maximized #barChart .exact-col{flex:1 0 90px;min-width:90px;grid-template-columns:1fr;line-height:1.25;padding:4px 6px;font-size:11px}
+.adjustable-panel.is-maximized #barChart .exact-col span,.adjustable-panel.is-maximized #barChart .exact-col b{font-size:11px}
+body.fit-mode #barChart svg{height:calc(100% - 33px)!important}
+@media(max-width:820px){#barChart .area-summary{gap:3px;font-size:9px}#barChart .area-summary b{font-size:10px}}
+
+
+/* v4.2: two states only — MAXIMIZE ↔ RESTORE. Panels fill viewport; content scales with space. */
+.panel-action[data-panel-action="minimize"],button[data-panel-action="minimize"]{display:none!important}
+.adjustable-panel.is-maximized,.raw-block.is-maximized{position:fixed!important;inset:8px!important;width:calc(100vw - 16px)!important;max-width:none!important;height:calc(100dvh - 16px)!important;max-height:none!important;z-index:2200!important;overflow:hidden!important;border:1px solid #64b5ed!important;border-radius:12px!important;display:flex!important;flex-direction:column!important;box-shadow:0 14px 70px #000c!important}
+.adjustable-panel.is-maximized .panel-header{flex:0 0 auto;min-height:54px;padding:12px 18px!important}
+.adjustable-panel.is-maximized .panel-header h2{font-size:19px!important}
+.adjustable-panel.is-maximized .panel-action,.raw-block.is-maximized [data-panel-action="maximize"]{font-size:13px!important;padding:8px 15px!important}
+.adjustable-panel.is-maximized .chart-body,.adjustable-panel.is-maximized .floor-chart,.adjustable-panel.is-maximized .heat-wrap{height:auto!important;min-height:0!important;max-height:none!important;flex:1 1 auto!important;overflow:hidden!important}
+.adjustable-panel.is-maximized #barChart{display:grid;grid-template-rows:minmax(0,1fr) auto!important;padding:12px 22px 16px!important}
+.adjustable-panel.is-maximized #barChart svg{width:100%!important;height:100%!important;max-height:none!important;min-height:0!important;align-self:stretch;display:block}
+.adjustable-panel.is-maximized #barChart .exact-values{height:auto!important;flex:none!important;min-height:95px;padding-top:8px}
+.adjustable-panel.is-maximized #barChart .exact-hint{font-size:12px!important;white-space:normal}
+.adjustable-panel.is-maximized #barChart .exact-scroll{width:100%;display:grid;grid-template-columns:repeat(10,minmax(85px,1fr));overflow-x:auto;overflow-y:hidden;gap:6px}
+.adjustable-panel.is-maximized #barChart .exact-col{flex:auto;min-width:85px;font-size:12px!important;border-radius:6px}
+.adjustable-panel.is-maximized #barChart .exact-col span,.adjustable-panel.is-maximized #barChart .exact-col b{font-size:12px!important}
+.adjustable-panel.is-maximized .floor-chart{display:flex;flex-direction:column;justify-content:space-between;padding:18px 27px!important;gap:7px}
+.adjustable-panel.is-maximized .floor-legend{flex:0 0 auto;font-size:13px!important}
+.adjustable-panel.is-maximized .floor-row{flex:1;min-height:28px;max-height:64px;grid-template-columns:65px minmax(0,1fr) 90px;gap:14px;margin:0}
+.adjustable-panel.is-maximized .floor-row .nm,.adjustable-panel.is-maximized .floor-row small{font-size:15px!important;align-self:center}
+.adjustable-panel.is-maximized .floor-row .stack{height:clamp(23px,3.3vh,38px)!important;align-self:center}
+.adjustable-panel.is-maximized .floor-row .stack i b{font-size:12px!important}
+.adjustable-panel.is-maximized .heat-wrap{display:flex;flex-direction:column;padding:18px 25px!important}
+.adjustable-panel.is-maximized .heat-caption{flex:0 0 auto;font-size:13px!important;margin-bottom:13px}
+.adjustable-panel.is-maximized .heat-table{flex:1 1 auto;height:100%;width:100%;table-layout:fixed}
+.adjustable-panel.is-maximized .heat-table th,.adjustable-panel.is-maximized .heat-table td{font-size:clamp(12px,1.2vw,19px)!important}
+.raw-block.is-maximized .raw-title{flex:0 0 auto;padding:14px 18px!important}
+.raw-block.is-maximized .raw-title h2{font-size:21px}
+.raw-block.is-maximized .table-holder,body.fit-mode .raw-block.is-maximized .table-holder{display:block;flex:1 1 auto!important;width:100%!important;min-width:0!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:auto!important;border-color:#63a9dd}
+.raw-block.is-maximized .raw-table{width:max-content!important;min-width:100%!important}
+.raw-block.is-maximized .raw-table th,.raw-block.is-maximized .raw-table td{padding:12px 15px;font-size:12px}
+.raw-block.is-maximized .raw-footer{flex:0 0 auto;padding:12px 16px;font-size:11px}
+body.panel-fullscreen:after{content:"";position:fixed;inset:0;background:#010613b3;z-index:2100;pointer-events:none}
+/* maximize graph fills view; keep scroll only for 46-column RAW sheet (not readability-destroying shrink). */
+@media(max-width:800px){.adjustable-panel.is-maximized #barChart{padding:9px!important}.adjustable-panel.is-maximized #barChart .exact-scroll{grid-template-columns:repeat(10,minmax(86px,1fr))}.raw-block.is-maximized .raw-title{padding:9px!important}}
+
 </style>
 </head>
 <body>
@@ -195,8 +347,8 @@ body.fit-mode .utility-head{padding:5px 8px}
     <header class="topbar"><button class="mobile-nav" id="mobileHome" title="메인 대시보드로 이동">⌂</button><div class="top-search">⌕ <input id="globalSearch" placeholder="라인, FAB, 동, 구역, Room 검색 (예: A라인, 2F)" autocomplete="off"/></div><div class="top-actions"><label class="quick-nav"><span class="sr-only">업무 메뉴 바로가기</span><select id="moduleJump" aria-label="전체 16개 업무 메뉴 이동"><option value="">업무 메뉴 바로가기 (16개)</option><option value="./line-info.html">01. 라인 기본정보</option><option value="./index.html#/production">02. 생산계획</option><option value="./index.html#/capacity">03. 생산능력(CAPA)</option><option value="./index.html#/equipment">04. 설비현황</option><option value="./index.html#/investment">05. 설비투자</option><option value="./index.html#/layout">06. 설비 Layout</option><option value="./index.html#/specs">07. 설비 제원정보</option><option value="./index.html#/hookup">08. 공사 · Hook-up</option><option value="./index.html#/productivity">09. 생산성</option><option value="./index.html#/process">10. 공정 · 물류</option><option value="./index.html#/budget">11. 투자 · 예산</option><option value="./index.html#/milestones">12. 일정 · 마일스톤</option><option value="./index.html#/safety">13. 안전 · 환경</option><option value="./index.html#/issues">14. 리스크 · 이슈</option><option value="./index.html#/standards">15. 기준 · 표준</option><option value="./index.html#/reports">16. 보고 · 의사결정</option></select></label><span class="top-tag">EDS　/　라인 기본정보</span><span class="avatar">LP</span><span>라인기획팀</span></div></header>
     <main class="main">
       <div class="page-head">
-        <div><div class="title-pre">LINE & FACILITY INFORMATION</div><h1>01. 라인 기본정보 <span class="demo-label">v4.0 · 가상 데이터</span></h1><p>라인별 공간, 층, 바닥, 층고, 환경, 접근성, 도면 정보를 통합 관리합니다.</p></div>
-        <div class="version-top"><button class="btn fit-btn" id="fitScreen" type="button" title="모니터에 대시보드 맞추기">▣ 한 화면 맞춤</button><span>최신 버전 <strong id="topVersion">v1.2</strong></span><span>최종 수정일 <strong id="lastEditDate">—</strong></span><span>수정자 <strong id="lastEditor">—</strong></span></div>
+        <div><div class="title-pre">LINE & FACILITY INFORMATION</div><h1>01. 라인 기본정보 <span class="demo-label">v4.2 · 가상 데이터</span></h1><p>라인별 공간, 층, 바닥, 층고, 환경, 접근성, 도면 정보를 통합 관리합니다.</p></div>
+        <div class="version-top"><button type="button" class="btn toolbar-aux" id="openManager" aria-expanded="false" title="Excel 업로드·버전 관리 패널 열기">↥ 데이터 관리</button><button type="button" class="btn toolbar-aux" id="toggleTools" aria-expanded="false" title="라인 비교·데이터 품질 도구 보기">⌘ 분석 도구</button><button class="btn fit-btn" id="fitScreen" type="button" title="모니터에 대시보드 맞추기">▣ 한 화면 맞춤</button><span>최신 버전 <strong id="topVersion">v1.2</strong></span><span>최종 수정일 <strong id="lastEditDate">—</strong></span><span>수정자 <strong id="lastEditor">—</strong></span></div>
       </div>
       <section class="filters" aria-label="조회 필터">
         <div class="filter-field"><label for="fSite">사업장</label><select id="fSite"></select></div>
@@ -214,18 +366,18 @@ body.fit-mode .utility-head{padding:5px 8px}
         <article class="kpi"><div class="kpi-icon">▢</div><div><div class="kpi-label">가용면적 합계</div><div class="kpi-value"><span id="kpiAvail">—</span><small>m²</small></div></div></article>
       </section>
       <div class="workspace-layout"><div class="workspace-core"><section class="vis-grid" aria-label="공간 분석 그래프">
-        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인별 면적 비교 <small>(Top 10)</small></h2><div class="legend"><span><i class="dot"></i> 건설면적</span><span><i class="dot purple"></i> 클린면적</span><span><i class="dot cyan"></i> 가용면적</span></div><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="그래프 최대화 / 원래 크기" aria-label="최대화">⤢ 최대화</button><button type="button" class="panel-action" data-panel-action="minimize" title="그래프 최소화 / 펼치기" aria-label="최소화">− 최소화</button></div></div><div id="barChart" class="chart-body"></div></div>
-        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인별 층 구성 <small>(최대 3개 층)</small></h2><small>클린면적 기준</small><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="그래프 최대화 / 원래 크기" aria-label="최대화">⤢ 최대화</button><button type="button" class="panel-action" data-panel-action="minimize" title="그래프 최소화 / 펼치기" aria-label="최소화">− 최소화</button></div></div><div id="floorChart" class="floor-chart"></div></div>
-        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인 × 층 가용면적 <small>(m²)</small></h2><small>클린면적 대비 가용률</small><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="그래프 최대화 / 원래 크기" aria-label="최대화">⤢ 최대화</button><button type="button" class="panel-action" data-panel-action="minimize" title="그래프 최소화 / 펼치기" aria-label="최소화">− 최소화</button></div></div><div id="heatmap" class="heat-wrap"></div></div>
+        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인별 면적 비교 <small>(Top 10)</small></h2><div class="legend"><span><i class="dot"></i> 건설면적</span><span><i class="dot purple"></i> 클린면적</span><span><i class="dot cyan"></i> 가용면적</span></div><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="최대화 또는 원래대로" aria-label="최대화">⤢ 최대화</button></div></div><div id="barChart" class="chart-body"></div></div>
+        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인별 층 구성 <small>(최대 3개 층)</small></h2><small>클린면적 기준</small><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="최대화 또는 원래대로" aria-label="최대화">⤢ 최대화</button></div></div><div id="floorChart" class="floor-chart"></div></div>
+        <div class="panel adjustable-panel"><div class="panel-header"><h2>라인 × 층 가용면적 <small>(m²)</small></h2><small>클린면적 대비 가용률</small><div class="panel-controls"><button type="button" class="panel-action" data-panel-action="maximize" title="최대화 또는 원래대로" aria-label="최대화">⤢ 최대화</button></div></div><div id="heatmap" class="heat-wrap"></div></div>
       </section>
       <section class="raw-block">
         <div class="raw-title"><div><h2>Raw Data <small id="rawCount">(—)</small></h2><small>원본 엑셀과 동일한 46개 필드 · 라인/층 고정 열 · 좌우 스크롤</small></div>
-          <div class="raw-actions"><button class="btn" id="downloadTemplate">⇩ RAW 양식 다운로드</button><button class="btn" id="downloadCurrent">⇩ 최신 RAW 다운로드</button><button class="btn primary" id="openUpload">↥ 수정본 업로드</button><button class="btn success" id="openHistory">◷ 변경이력 보기</button><button class="btn" id="openSync">⟳ GitHub 공유 연결</button><button type="button" class="btn" data-panel-action="maximize" title="표 최대화">⤢ 표 최대화</button><button type="button" class="btn" data-panel-action="minimize" title="표 최소화">− 표 최소화</button></div></div>
+          <div class="raw-actions"><button class="btn" id="quickLineCompare" type="button" title="라인/층 설치조건 비교">⇄ 라인 비교</button><button class="btn" id="quickQuality" type="button" title="필수값·중복 검사 결과">⚑ 품질 검증</button><button class="btn" id="downloadTemplate">⇩ RAW 양식 다운로드</button><button class="btn" id="downloadCurrent">⇩ 최신 RAW 다운로드</button><button class="btn primary" id="openUpload">↥ 수정본 업로드</button><button class="btn success" id="openHistory">◷ 변경이력 보기</button><button class="btn" id="openSync">⟳ GitHub 공유 연결</button><button type="button" class="btn" data-panel-action="maximize" title="표 최대화">⤢ 최대화</button></div></div>
         <div class="table-holder" id="rawTableHolder"><table class="raw-table" id="rawTable"></table></div>
         <div class="raw-footer"><span>조회 <strong id="footerCount">0</strong>개 층 · 전체 <strong id="footerAll">0</strong>개 층</span><span id="dataVersion">현재 데이터 버전 —</span> <span id="syncIndicator" class="sync-indicator" title="저장 위치">● 브라우저 테스트</span><span>행을 클릭하면 해당 층의 주요 정보를 확인합니다.</span></div>
       </section>
       </div>
-      <aside class="management-rail" aria-label="엑셀 수정 및 버전 관리">
+      <div class="manage-backdrop" id="manageBackdrop" hidden></div><aside class="management-rail" id="manageRail" aria-label="엑셀 수정 및 버전 관리" aria-hidden="true"><div class="manager-head"><strong>데이터 관리</strong><button type="button" class="btn" id="closeManager" aria-label="관리 패널 닫기">✕ 닫기</button></div>
         <section class="rail-card upload-rail">
           <div class="rail-heading"><h2>↥ 수정본 업로드</h2><span class="mini-chip">검증 후 반영</span></div>
           <form id="railUploadForm" class="rail-form">
@@ -244,7 +396,7 @@ body.fit-mode .utility-head{padding:5px 8px}
           <div class="rail-history-actions"><button id="railViewRaw" type="button" class="btn">RAW 보기</button><button id="railCompare" type="button" class="btn">변경 비교</button><button id="railDownload" type="button" class="btn">↓ 다운로드</button></div>
         </section>
       </aside></div>
-      <section class="utility-grid" aria-label="편의 기능과 데이터 상태">
+      <section class="utility-grid" id="utilityTools" aria-label="편의 기능과 데이터 상태">
         <article class="utility-card"><div class="utility-head"><h2>▤ 작업 흐름</h2><small>라인 기본정보 업데이트</small></div>
           <div class="steps"><button type="button" data-utility="download">① 최신 RAW 받기</button><span>→</span><button type="button" data-utility="upload">② 엑셀 수정·업로드</button><span>→</span><button type="button" data-utility="verify">③ 변경 검증</button><span>→</span><button type="button" data-utility="history">④ 버전·이력 확인</button></div>
         </article>
@@ -319,7 +471,21 @@ function initFilters(){let all=latest().rows;opts('fSite',all.map(x=>x['사업�
 function filterRows(){let r=latest().rows,fil={fSite:'사업장명',fFab:'FAB명',fLine:'라인명',fFloor:'층',fDong:'동'};for(const [id,col]of Object.entries(fil)){let q=byId(id).value;if(q)r=r.filter(x=>String(x[col])===q);}const search=byId('globalSearch').value.trim().toLowerCase();if(search)r=r.filter(x=>['라인 ID','라인명','층','사업장명','FAB명','건물코드','동','구역','Bay','Room'].some(k=>String(x[k]??'').toLowerCase().includes(search)));return r;}
 function render(){const rows=filterRows();state.view=rows;const set=new Set(rows.map(r=>r['라인 ID']));byId('kpiLines').textContent=fmt(set.size);byId('kpiFloors').textContent=fmt(rows.length);byId('kpiBuilt').textContent=fmt(rows.reduce((v,r)=>v+num(r['건설면적 (m²)']),0));byId('kpiClean').textContent=fmt(rows.reduce((v,r)=>v+num(r['클린면적 (m²)']),0));byId('kpiAvail').textContent=fmt(rows.reduce((v,r)=>v+num(r['가용면적 (m²)']),0));byId('topVersion').textContent=latest().version;byId('lastEditDate').textContent=latest().date;byId('lastEditor').textContent=latest().author;byId('dataVersion').textContent=`최신 반영 데이터 ${latest().version}`;byId('rawCount').textContent=`(${fmt(rows.length)}개 층)`;byId('footerCount').textContent=fmt(rows.length);byId('footerAll').textContent=fmt(latest().rows.length);renderBars(rows);renderFloor(rows);renderHeat(rows);renderTable(rows);}
 function rollup(rows){const m=new Map();for(const r of rows){let key=r['라인 ID'];if(!m.has(key))m.set(key,{line:r['라인명'],id:key,built:0,clean:0,avail:0,byFloor:{}});let x=m.get(key);x.built+=num(r['건설면적 (m²)']);x.clean+=num(r['클린면적 (m²)']);x.avail+=num(r['가용면적 (m²)']);x.byFloor[r['층']]=(x.byFloor[r['층']]||0)+num(r['클린면적 (m²)']);}return [...m.values()].sort((a,b)=>a.id.localeCompare(b.id));}
-function renderBars(rows){let lines=rollup(rows).slice(0,10),w=710,hgt=280;let max=Math.max(1,...lines.map(x=>x.built));let gridTop=38,bot=233,scale=195/max;let ticks=[0,.25,.5,.75,1].map(p=>{let y=bot-p*195;return `<line class="svg-grid" x1="67" x2="700" y1="${y}" y2="${y}"/><text class="svg-tick" x="55" y="${y+4}" text-anchor="end">${fmt(max*p)}</text>`}).join('');const slot=633/Math.max(lines.length,1);let bars=lines.map((r,i)=>{let cx=67+slot*(i+.5),bw=Math.max(4,Math.min(15,slot/4.4));return [['built','#66a7ff'],['clean','#ad91f1'],['avail','#36d2ce']].map(([key,color],j)=>{let v=r[key],bh=v*scale;return `<rect x="${cx+(j-1)*(bw+2)-bw/2}" y="${bot-bh}" width="${bw}" height="${bh}" rx="2" fill="${color}"><title>${h(r.line)} ${key==='built'?'건설':key==='clean'?'클린':'가용'} ${fmt(v)} m²</title></rect>`}).join('')+`<text class="svg-value" x="${cx}" y="${Math.max(34,bot-r.built*scale-8)}" text-anchor="middle">${fmt(r.built)}</text><text class="svg-axis" x="${cx}" y="251" text-anchor="middle">${h(r.line)}</text>`;}).join('');byId('barChart').innerHTML=lines.length?`<svg viewBox="0 0 ${w} ${hgt}" role="img" aria-label="라인별 건설 클린 가용면적 비교"><text class="svg-axis" x="68" y="20">면적 (m²)</text>${ticks}${bars}</svg><div class="exact-values"><div class="exact-hint">건설 / 클린 / 가용면적 (m²) · 정확한 수치 (가로 스크롤 가능)</div><div class="exact-scroll">${lines.map(r=>`<div class="exact-col"><b>${h(r.line)}</b><span>${fmt(r.built)}</span><span>${fmt(r.clean)}</span><span>${fmt(r.avail)}</span></div>`).join('')}</div></div>`:emptyChart();}
+function renderBars(rows){
+ const lines=rollup(rows).slice(0,10),w=710,hgt=280;
+ const max=Math.max(1,...lines.map(x=>x.built)),bot=233,scale=195/max;
+ const ticks=[0,.25,.5,.75,1].map(t=>{let y=bot-t*195;return `<line class="svg-grid" x1="67" x2="700" y1="${y}" y2="${y}"/><text class="svg-tick" x="55" y="${y+4}" text-anchor="end">${fmt(max*t)}</text>`}).join('');
+ const slot=633/Math.max(lines.length,1);
+ const bars=lines.map((r,i)=>{
+  let cx=67+slot*(i+.5),bw=Math.max(4,Math.min(15,slot/4.4));
+  let rects=[['built','#66a7ff'],['clean','#ad91f1'],['avail','#36d2ce']].map(([key,color],j)=>{let v=r[key],bh=v*scale;return `<rect x="${cx+(j-1)*(bw+2)-bw/2}" y="${bot-bh}" width="${bw}" height="${bh}" rx="2" fill="${color}"><title>${h(r.line)} ${key==='built'?'건설':key==='clean'?'클린':'가용'} ${fmt(v)} m²</title></rect>`}).join('');
+  return `<g class="bar-hit" data-chart-line="${h(r.line)}" role="button" tabindex="0" aria-label="${h(r.line)}: 건설 ${fmt(r.built)}, 클린 ${fmt(r.clean)}, 가용 ${fmt(r.avail)} 제곱미터">${rects}<text class="svg-value" x="${cx}" y="${Math.max(34,bot-r.built*scale-8)}" text-anchor="middle">${fmt(r.built)}</text><text class="svg-axis" x="${cx}" y="251" text-anchor="middle">${h(r.line)}</text></g>`;
+ }).join('');
+ const focus=lines[0];
+ const summary=focus?`<div class="area-summary" aria-label="첫 번째 라인 정확한 세 가지 면적"><strong>${h(focus.line)}</strong><span><i class="dot"></i>건설 <b>${fmt(focus.built)}</b></span><span><i class="dot purple"></i>클린 <b>${fmt(focus.clean)}</b></span><span><i class="dot cyan"></i>가용 <b>${fmt(focus.avail)}</b></span><span class="area-unit">m²</span></div>`:'';
+ const ledger=`<div class="exact-values"><div class="exact-hint">모든 라인의 정확한 건설 / 클린 / 가용면적 (단위 m²) — 최대화 화면에서 전체 조회</div><div class="exact-scroll">${lines.map(r=>`<div class="exact-col" data-chart-line="${h(r.line)}"><b>${h(r.line)}</b><span>건설 ${fmt(r.built)}</span><span>클린 ${fmt(r.clean)}</span><span>가용 ${fmt(r.avail)}</span></div>`).join('')}</div></div>`;
+ byId('barChart').innerHTML=lines.length?`<svg viewBox="0 0 ${w} ${hgt}" role="img" aria-label="라인별 건설·클린·가용 면적 비교 그래프. 건설면적은 막대 위 수치, 나머지 수치는 막대 클릭 및 최대화에서 확인"><text class="svg-axis" x="68" y="20">면적 (m²)</text>${ticks}${bars}</svg>${summary}${ledger}`:emptyChart();
+}
 function renderFloor(rows){let lines=rollup(rows);if(!lines.length){byId('floorChart').innerHTML=emptyText();return;}let max=Math.max(1,...lines.map(x=>x.clean));byId('floorChart').innerHTML=`<div class="floor-legend"><span><i class="dot"></i>1F</span><span><i class="dot cyan"></i>2F</span><span><i class="dot purple"></i>3F</span></div>`+lines.map(r=>{const vals=['1F','2F','3F'].map(f=>r.byFloor[f]||0);return `<div class="floor-row"><span class="nm">${h(r.line)}</span><div class="stack" style="width:${Math.max(1,r.clean/max*100)}%">${vals.map((v,i)=>`<i style="width:${r.clean?v/r.clean*100:0}%" title="${['1F','2F','3F'][i]} 클린면적 ${fmt(v)} m²">${v?`<b>${fmt(v)}</b>`:''}</i>`).join('')}</div><small>${fmt(r.clean)}</small></div>`}).join('');}
 function renderHeat(rows){const lines=rollup(rows);let map=new Map(rows.map(r=>[r['라인 ID']+'|'+r['층'],r]));const cell=r=>{if(!r)return '<td class="empty">—</td>';let cl=num(r['클린면적 (m²)']),av=num(r['가용면적 (m²)']),ratio=cl?av/cl:0;let a=Math.max(.25,Math.min(.84,.2+ratio*2.1));let color=ratio>.24?`rgba(22,183,158,${a})`:ratio>.19?`rgba(25,137,190,${a})`:`rgba(114,92,183,${a})`;return `<td style="background:${color}" title="가용면적 ${fmt(av)} m² · 가용률 ${(ratio*100).toFixed(1)}%">${fmt(av)}</td>`};byId('heatmap').innerHTML=lines.length?`<div class="heat-caption"><span>가용면적 / 층별</span><span>단위 m²</span></div><table class="heat-table"><thead><tr><th>라인</th><th>1F</th><th>2F</th><th>3F</th><th>가용률</th></tr></thead><tbody>${lines.map(l=>`<tr><th>${h(l.line)}</th>${['1F','2F','3F'].map(f=>cell(map.get(l.id+'|'+f))).join('')}<td style="background:#124d75">${l.clean?(l.avail/l.clean*100).toFixed(1):'0.0'}%</td></tr>`).join('')}</tbody></table>`:emptyText();}
 function emptyChart(){return '<div style="display:grid;place-items:center;height:100%;color:#799fbf">조회 결과가 없습니다.</div>'}function emptyText(){return '<div style="display:grid;place-items:center;height:160px;color:#799fbf">조회 결과가 없습니다.</div>'}
@@ -384,17 +550,14 @@ document.addEventListener('click', function(e){
     const active=pane.classList.contains('is-maximized');
     document.querySelectorAll('.adjustable-panel.is-maximized,.raw-block.is-maximized').forEach(el=>el.classList.remove('is-maximized'));
     if(!active){pane.classList.remove('is-minimized');pane.classList.add('is-maximized');}
-  }else if(kind==='minimize'){
-    pane.classList.remove('is-maximized');pane.classList.toggle('is-minimized');
   }
   document.body.classList.toggle('panel-fullscreen',!!document.querySelector('.is-maximized'));
-  document.querySelectorAll('[data-panel-action="maximize"]').forEach(b=>{let enlarged=b.closest('.adjustable-panel,.raw-block')?.classList.contains('is-maximized');b.textContent=enlarged?'↙ 원래 크기':(b.closest('.raw-block')?'⤢ 표 최대화':'⤢ 최대화');});
-  document.querySelectorAll('[data-panel-action="minimize"]').forEach(b=>{let collapsed=b.closest('.adjustable-panel,.raw-block')?.classList.contains('is-minimized');b.textContent=collapsed?'＋ 펼치기':(b.closest('.raw-block')?'− 표 최소화':'− 최소화');});
+  document.querySelectorAll('[data-panel-action="maximize"]').forEach(b=>{let enlarged=b.closest('.adjustable-panel,.raw-block')?.classList.contains('is-maximized');b.textContent=enlarged?'↙ 원래대로':(b.closest('.raw-block')?'⤢ 최대화':'⤢ 최대화');b.setAttribute('aria-label',enlarged?'원래대로':'최대화');});
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){
   document.querySelectorAll('.adjustable-panel.is-maximized,.raw-block.is-maximized').forEach(el=>el.classList.remove('is-maximized'));
   document.body.classList.remove('panel-fullscreen');
-  document.querySelectorAll('[data-panel-action="maximize"]').forEach(b=>{b.textContent=b.closest('.raw-block')?'⤢ 표 최대화':'⤢ 최대화';});
+  document.querySelectorAll('[data-panel-action="maximize"]').forEach(b=>{b.textContent='⤢ 최대화';b.setAttribute('aria-label','최대화');});
 }});
 
 
@@ -471,7 +634,23 @@ document.querySelectorAll('[data-utility]').forEach(b=>b.addEventListener('click
 // When history changes, reflect the selected version in both visual locations.
 byId('historyOverlay').addEventListener('click',()=>{requestAnimationFrame(renderRail);});
 
-init();initFilters();if(window.innerHeight<=1000&&window.innerWidth>=1350){document.body.classList.add('fit-mode');byId('fitScreen').textContent='□ 기본 크기';}render();loadPublicShared();
+
+// v4.1 drawer: all v4 Excel, RAW, version and comparison behavior remains intact.
+const manageBackdrop=byId('manageBackdrop');
+function toggleManager(open){document.body.classList.toggle('manage-open',!!open);manageBackdrop.hidden=!open;byId('manageRail').setAttribute('aria-hidden',String(!open));byId('openManager').setAttribute('aria-expanded',String(!!open));if(open){renderRail();byId('railAuthor').focus();}}
+byId('openManager').addEventListener('click',()=>toggleManager(!document.body.classList.contains('manage-open')));
+byId('closeManager').addEventListener('click',()=>toggleManager(false));
+manageBackdrop.addEventListener('click',()=>toggleManager(false));
+byId('toggleTools').addEventListener('click',()=>{let show=!document.body.classList.contains('tools-open');document.body.classList.toggle('tools-open',show);byId('toggleTools').setAttribute('aria-expanded',String(show));byId('toggleTools').textContent=show?'⌘ 분석 도구 닫기':'⌘ 분석 도구';if(show)byId('utilityTools').scrollIntoView({behavior:'smooth',block:'nearest'});});
+byId('quickLineCompare').addEventListener('click',()=>openLineCompare(false));
+byId('quickQuality').addEventListener('click',()=>showDialogQuality(dataQuality(latest().rows)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('manage-open'))toggleManager(false);});
+// Hide under-the-fold helper cards by default, keep individual compare/quality actions in RAW toolbar.
+function refreshV41FitButton(){byId('fitScreen').setAttribute('aria-pressed',String(document.body.classList.contains('fit-mode')));}
+byId('fitScreen').addEventListener('click',refreshV41FitButton);
+function useV41AdaptiveFit(){if(window.innerWidth>=1010&&window.innerHeight>=635&&window.innerHeight<=1100){document.body.classList.add('fit-mode');byId('fitScreen').textContent='□ 기본 크기';}else{document.body.classList.remove('fit-mode');byId('fitScreen').textContent='▣ 한 화면 맞춤';}refreshV41FitButton();}
+
+init();initFilters();useV41AdaptiveFit();render();loadPublicShared();
 })();
 </script>
 </body>
