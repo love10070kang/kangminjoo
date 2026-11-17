@@ -1,6 +1,6 @@
 'use strict';
 /**
- * EDS LINE PLANNING — MAIN DASHBOARD ONLY (v2.0)
+ * EDS LINE PLANNING — MAIN DASHBOARD ONLY (v4.3)
  * All figures and events below are FICTIONAL sample data for design review.
  * There are no network calls, passwords, tokens, AI APIs, or data writes.
  * Detailed pages will be implemented together, one by one.
@@ -10,14 +10,6 @@ const $ = id => document.getElementById(id);
 const icon = (name, cls = '') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-const GROUPS = [
-  {id:'line',name:'01. 라인 운영현황',icon:'factory',keys:['lines','production','capacity','equipment']},
-  {id:'facility',name:'02. 설비·인프라',icon:'cpu',keys:['investment','layout','specs','hookup']},
-  {id:'performance',name:'03. 생산 최적화',icon:'activity',keys:['productivity','process']},
-  {id:'schedule',name:'04. 투자·일정',icon:'calendar',keys:['budget','milestones']},
-  {id:'risk',name:'05. 기준·리스크',icon:'shield',keys:['safety','issues','standards']},
-  {id:'decision',name:'06. 보고·의사결정',icon:'clipboard',keys:['reports']}
-];
 const MODULES = {
   lines:{number:'01',name:'라인 기본정보',desc:'FAB, 동·층·구역, 면적, 라인 특성 관리',icon:'factory',fields:['라인 ID','사업장 / FAB','동 / 층 / 구역','건설면적 / 클린면적 / 가용면적','바닥·층고·Access Floor','환경 / 접근성 / 도면']},
   production:{number:'02',name:'생산계획',desc:'월별·제품별 생산 수요와 계획 버전 관리',icon:'calendar',fields:['계획 ID','계획 기간','제품군 / 공정','대상 라인','생산계획 물량','확정 여부']},
@@ -58,17 +50,8 @@ const ALERTS = [
 const STATE={route:'dashboard',collapsed:new Set(),line:'all',view:'3d',alerts:'all',startYear:2026};
 
 function renderNavigation(){
-  const homeActive=STATE.route==='dashboard';
-  let html=`<a class="nav-home ${homeActive?'active':''}" href="#/dashboard">⌂　홈 · 통합 대시보드</a>`;
-  for(const group of GROUPS){
-    const groupTitles={line:'01　라인 운영현황',facility:'02　설비 · 인프라',performance:'03　생산 최적화',schedule:'04　투자 · 일정',risk:'05　기준 · 리스크',decision:'06　보고 · 의사결정'};
-    html+=`<div class="nav-section">${esc(groupTitles[group.id]||group.name)}</div>`;
-    for(const key of group.keys){const m=MODULES[key];
-      const label=m.name.replace('공사·Hook-up','공사 · Hook-up').replace('투자·예산','투자 · 예산').replace('일정·마일스톤','일정 · 마일스톤').replace('안전·환경','안전 · 환경').replace('리스크·이슈','리스크 · 이슈').replace('기준·표준','기준 · 표준').replace('공정·물류','공정 · 물류').replace('보고·의사결정','보고 · 의사결정');
-      html+=`<a class="nav-item ${STATE.route===key?'active':''}" href="${key==='lines'?'./line-info.html':'#/'+key}" ${STATE.route===key?'aria-current="page"':''}><span class="nav-bullet">${m.number}</span><span class="nav-label">${esc(label)}</span></a>`;
-    }
-  }
-  $('sideNav').innerHTML=html;
+  if(!window.EDS_NAV)throw new Error('nav.js must load before app.js');
+  window.EDS_NAV.render('sideNav',STATE.route);
 }
 
 function kpiCard(iconName,name,number,unit,sub,color='blue',progress=false){

@@ -1,0 +1,45 @@
+/* EDS approved 6-group / 16-item sidebar. One stylesheet shared by HOME and LINE INFO. */
+:root{--eds-nav-width:210px}
+.eds-side{width:100%;height:100dvh;min-height:0!important;max-height:100dvh!important;position:sticky;top:0;overflow:hidden!important;background:linear-gradient(180deg,#06152f 0%,#031127 60%,#04152e 100%)!important;border-right:1px solid #285586!important;z-index:25;box-shadow:6px 0 22px #020a1899}
+#edsSideMount{display:flex;flex-direction:column;height:100%;min-height:0}
+.eds-brand{height:65px;min-height:65px;display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #1e436b;background:linear-gradient(95deg,#06162e,#0c2853);text-decoration:none;color:#f4faff}
+.eds-brand-logo{font-size:24px;font-weight:950;line-height:1;letter-spacing:-1.5px;border-right:1px solid #6cbdf8;padding-right:9px}
+.eds-brand-copy{display:flex;gap:5px;align-items:baseline;min-width:0}
+.eds-brand-copy strong{display:none}
+.eds-brand-copy small{display:block;font-size:9px;line-height:1.23;color:#e5f1ff;font-weight:650;letter-spacing:-.2px}
+.eds-nav{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:8px 7px 16px;scrollbar-width:thin;scrollbar-color:#4d80ad transparent}
+.eds-side .eds-ico{display:block;width:16px;height:16px;stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8;flex:none}
+.eds-nav-home{display:flex;align-items:center;gap:11px;width:100%;min-height:39px;padding:8px 11px;margin-bottom:8px;border-radius:7px;color:#ebf6ff;background:linear-gradient(180deg,#194371,#0f2f5d);border:1px solid #3274ad;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:inset 0 1px #83c5ff33}
+.eds-nav-home .eds-ico{width:19px;height:19px}.eds-nav-home.active,.eds-nav-home:hover{background:linear-gradient(100deg,#0967b5,#1393e7 60%,#065aaf);border-color:#30bbff;box-shadow:0 0 15px #087add55,inset 0 1px #bceaff66;color:#fff}
+.eds-nav-group{margin-bottom:5px}
+.eds-nav-group-head{display:flex;align-items:center;gap:6px;width:100%;min-height:29px;padding:4px 8px;background:linear-gradient(110deg,#173c70,#102b57);border:1px solid #346ba5;border-radius:6px;color:#f1f8ff;font-size:11px;font-weight:800;white-space:nowrap;text-align:left;box-shadow:inset 0 1px #8fc4ff22}
+.eds-nav-group-head:hover{border-color:#76baf4;background:linear-gradient(110deg,#20508a,#133767)}
+.eds-nav-group-head .eds-ico:first-child{width:15px;height:15px;color:#b4dcff}
+.eds-nav-group-head .eds-ico:last-child{width:13px;height:13px;margin-left:auto;transition:transform .18s}
+.eds-nav-group.closed .eds-nav-group-head .eds-ico:last-child{transform:rotate(-90deg)}
+.eds-nav-count{font-size:10px;opacity:.82;margin-left:1px}
+.eds-nav-items{display:grid;gap:1px;padding:3px 2px 0 5px}
+.eds-nav-group.closed .eds-nav-items{display:none}
+.eds-nav-link{display:flex;align-items:center;gap:9px;width:100%;min-width:0;min-height:26px;padding:4px 7px 4px 8px;text-decoration:none;color:#c5daf0;font-weight:630;font-size:11.2px;border:1px solid transparent;border-radius:6px;white-space:nowrap}
+.eds-nav-link .eds-ico{color:#c8e4ff}
+.eds-nav-link:hover{color:#fff;background:#173d6b}
+.eds-nav-link.active{color:#fff;font-weight:850;background:linear-gradient(90deg,#0b8bd8,#1667b9);border-color:#43baff;box-shadow:0 0 13px #1499fc66}
+.eds-nav-link.active .eds-ico{color:#fff}
+.eds-nav-link-text{overflow:hidden;text-overflow:ellipsis}
+.eds-nav-foot{flex:none;border-top:1px solid #183961;padding:8px 9px 10px;background:#06182f}
+.eds-nav-minify{display:flex;gap:9px;align-items:center;justify-content:center;width:100%;min-height:30px;border:1px solid #386c9c;border-radius:7px;background:linear-gradient(160deg,#113b6b,#071f43);color:#dfedff;font-size:11px;font-weight:800;cursor:pointer}
+.eds-nav-minify:hover{filter:brightness(1.15)}
+body.nav-compact{--aside:60px!important;--side-width:60px!important}
+body.nav-compact .eds-brand{padding:7px 3px;justify-content:center}
+body.nav-compact .eds-brand-logo{font-size:18px;letter-spacing:-1px;border:0;padding:0}
+body.nav-compact .eds-brand-copy,body.nav-compact .eds-nav-home-text,body.nav-compact .eds-nav-group-title,body.nav-compact .eds-nav-count,body.nav-compact .eds-nav-link-text,body.nav-compact .eds-nav-minify span{display:none!important}
+body.nav-compact .eds-nav{padding:6px 4px}
+body.nav-compact .eds-nav-home,body.nav-compact .eds-nav-link{justify-content:center;padding:7px 3px;gap:0}
+body.nav-compact .eds-nav-group-head{padding:7px 3px;justify-content:center;min-height:31px}
+body.nav-compact .eds-nav-group-head .eds-ico:last-child{display:none}
+body.nav-compact .eds-nav-items{padding:2px 0 0}
+body.nav-compact .eds-nav-link{min-height:29px}
+body.nav-compact .eds-nav-link .eds-ico{width:18px;height:18px}
+body.nav-compact .eds-nav-minify{min-height:31px;padding:5px 2px}
+@media(max-width:1100px){.eds-side{display:none!important}}
+@media(prefers-reduced-motion:reduce){.eds-nav-group-head .eds-ico:last-child{transition:none}}
